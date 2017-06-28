@@ -196,7 +196,7 @@
                         <!--small><em>Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</em></small-->            
                     </div>
 
-                    <form>
+                    <form method="post" action="process.php">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
@@ -238,18 +238,18 @@
                 <div class="clearfix"></div>
               </div>
               
-              <form>
+              <form method="post" action="process.php">
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
                       <label for="exampleInputFirstName2">First Name</label>
-                        <input type="text" class="form-control" id="exampleInputFirstName2" placeholder="Enter First Name">
+                        <input type="text" class="form-control" id="exampleInputFirstName2" placeholder="Enter First Name" name="firstName">
                       </div>
                     </div>
                     <div class="col-md-6">
                     <div class="form-group">
                       <label for="exampleInputLastName2">Last Name</label>
-                        <input type="text" class="form-control" id="exampleInputLastName2" placeholder="Enter Last Name">
+                        <input type="text" class="form-control" id="exampleInputLastName2" placeholder="Enter Last Name" name="lastName">
                       </div>
                     </div>
                   </div>
@@ -257,7 +257,7 @@
                   <div class="col-md-12">
                     <div class="form-group">
                       <label for="exampleInputEmail2">Email Address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Enter email">
+                        <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Enter email" name="e_mail">
                       </div>
                     </div>
                   </div>
@@ -265,13 +265,13 @@
                     <div class="col-md-6">
                     <div class="form-group">
                       <label for="exampleInputPassword2">Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="password">
                       </div>
                 </div>
                     <div class="col-md-6">
                         <div class="form-group">
                         <label for="exampleInputreenterPassword2">Re-enter Password</label>
-                            <input type="password" class="form-control" id="exampleInputreenterPassword2" placeholder="Re-enter password">
+                            <input type="password" class="form-control" id="exampleInputreenterPassword2" placeholder="Re-enter password" name="rPassword">
                       </div>
                     </div>
                   </div>
@@ -295,7 +295,7 @@
                   </div><br>
                   
                   <h3 id="signUpAlready">Already have an Account <a href="#tf-signin"  class="page-scroll">Sign In</a></h3>
-                  <button type="button" class="btn tf-btn btn-default">Submit</button>
+                  <button type="submit" class="btn tf-btn btn-default">Submit</button>
               </form>
           </div>
         </div>
