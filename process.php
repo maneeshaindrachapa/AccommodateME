@@ -14,8 +14,6 @@
     <link href="style_process.css" rel="stylesheet">
 
     
-    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Raleway:400,300,700' rel='stylesheet' type='text/css'>
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans|Titillium+Web" rel="stylesheet">
   </head>
     
@@ -45,7 +43,7 @@
                         exit; 
                     }
                     //////////////////////////////////////////////////////////
-                    ?></b> </h1>
+                    ?></b></h1>
                 
             </header>
                 <?php
@@ -75,18 +73,66 @@
                 ?>
             
             <div class="col-md-8 col-md-offset-2">
-                <a href="profile.php"><img src="img/team/02.jpg" id="profilePic" width="150px" height="150px"></a>
-                <style>#profilePic{
-                    border-radius: 100%;
-                    transform: scale(1);
-                    transition-duration: 0.2s;
+            
+            <!--profile pic-->    
+                <div class="wrap">
+                    <div class="sideA"></div>
+                    <a href="profile.php"><div class="sideB"></div></a>
+                </div>
+                <style>
+                        .wrap{
+                        margin: auto;
+                        width: 150px;
+                        height: 150px;
+                        cursor: pointer;
                     }
-                    #profilePic:hover{
-                        transform: scale(1.2);
-                        transition-duration: 0.2s;            
-                        }
+
+                    .wrap div{
+                        width:150px;
+                        height:150px;
+                        border-radius: 100%;
+                        background-position:50% 50%;
+                        background-size: 150px;
+                        background-repeat: no-repeat;
+                        box-shadow:inset 0 0 45px rgba(255,255,255,0.3) , 0 12px 20px -10px rgba(0,0,0,0.4)  ;
+                    }
+
+                    .sideA{
+                        background-image: url("img/team/02.jpg");
+                        background-size:cover;
+                    }
+
+                    .sideB{
+                        background-image: url("img/editProfile.jpg");
+                        background-size: cover;
+                    }
+
+                    /*Transitions for the wallpapers*/
+                    body{
+                        -webkit-perspective: 800px;
+                    }
+
+                    .wrap div{
+                        position: absolute;
+                        -webkit-backface-visibility: hidden;
+                    }
+
+                    .sideA{
+                        z-index: 100;
+                    }
+                    .sideB{
+                        -webkit-transform: rotateY(-180deg);
+                    }
+                    .wrap{
+                        transition:-webkit-transform 0.2s ease-in ;
+                        -webkit-transform-style: preserve-3D;
+
+                    }
+                    .wrap:hover{
+                        -webkit-transform:rotateY(180deg);
+                    }
                 </style>
-                <br><br>
+            <!--------------->
                 
             	<h4>Search For a Boarding Place</h4><br><br>
 				<form class="form-inline" role="form">
@@ -118,11 +164,9 @@
                     <br><br><br> 
 				  <button type="button" class="btn btn-info">Search</button>
 				</form>            
-			</div>
-            
+			</div>  
         </div>
-        <div id="layer"></div>
-        <!-- END LAYER -->
+        
         
         <!-- START SLIDER -->
         <div id="slider" class="rev_slider">
@@ -142,11 +186,18 @@
             </ul>
         </div>
         
-        <!-- END SLIDER -->
+    <!-- END SLIDER -->
     </section>
- 
-
-    <!-- Bootstrap core JavaScript
+      <nav id="footer">
+        <div class="container">
+            <div class="pull-left fnav">
+                <p>ALL RIGHTS RESERVED. COPYRIGHT © 2017. Designed by TeamMILKY &#169;</p>
+            </div>
+        </div>
+    </nav>
+  </body>
+  <!-- END BODY -->
+     <!-- Bootstrap core JavaScript
     ================================================== -->
       
     <script src="js/jquery.1.11.1.js"></script>
@@ -155,6 +206,4 @@
     <script src="js/plugins.js"></script>
     <script src="js/jquery.themepunch.revolution.min.js"></script>
     <script src="js/custom.js"></script>
-  </body>
-  <!-- END BODY -->
 </html>
