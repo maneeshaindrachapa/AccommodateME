@@ -322,7 +322,7 @@
         </div>
       </div>
         <hr id="signup-bottom-line">
-    
+      </div>
 
     <nav id="footer">
         <div class="container">
@@ -347,6 +347,6 @@
     ================================================== -->
     <script type="text/javascript" src="js/main.js"></script>
     <script src="js/animatedParticals.js"></script>
-
+    
   </body>
 </html>

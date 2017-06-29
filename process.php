@@ -75,7 +75,7 @@
                 ?>
             
             <div class="col-md-8 col-md-offset-2">
-                <img src="img/team/02.jpg" id="profilePic" width="150px" height="150px">
+                <a href="profile.php"><img src="img/team/02.jpg" id="profilePic" width="150px" height="150px"></a>
                 <style>#profilePic{
                     border-radius: 100%;
                     transform: scale(1);

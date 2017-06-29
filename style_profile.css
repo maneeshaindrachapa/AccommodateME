@@ -1,0 +1,130 @@
+body{
+    background-image: url(img/11.jpg);
+    background-size: cover;
+    font-family: 'Josefin Sans', sans-serif;
+	text-rendering: optimizeLegibility !important;
+	-webkit-font-smoothing: antialiased !important;
+	color: #FFF;
+    background-repeat: no-repeat;
+    height: 100%;
+}
+
+h1{
+	text-transform: uppercase;
+}
+h1 strong{
+	font-weight: 900;
+}
+h2{
+	text-transform: uppercase;
+	line-height: 20px;
+	margin:  0;
+}
+h3{
+font-size: 25px;
+font-weight: 900;
+}
+
+h4{
+	text-transform: uppercase;
+}
+
+h5{
+	text-transform: uppercase;
+	font-weight: 700;
+	line-height: 20px;
+}
+p{
+	font-family: 'Open Sans', sans-serif;
+}
+
+p.intro{
+	font-size: 16px;
+	margin: 12px 0 0;
+	line-height: 24px;
+	font-family: 'Open Sans', sans-serif;
+}
+a{ color: #FCAC45;}
+a:hover,
+a:focus{
+	text-decoration: none;
+	color: #FCAC45;
+}
+label{
+    font-size: 18px;
+}
+label,i{
+    color: #FFFFFF;
+}
+
+.section-title hr{
+	border-color: #fcac45;
+	border-width: 4px;
+	width: 60px;
+	float: left;
+	clear: both;
+}
+.clearfix:after {
+     visibility: hidden;
+     display: block;
+     font-size: 0;
+     content: " ";
+     clear: both;
+     height: 0;
+     }
+.clearfix { display: inline-block; }
+* html .clearfix { height: 1%; }
+.clearfix { display: block; }
+ul, ol{
+	padding: 0;
+	webkit-padding: 0;
+	moz-padding: 0;
+}
+
+/*buttons*/
+.btn.btn-primary{
+    background-color: #FCAC45;
+    transform: scale(1.0);
+    transition-duration: 0.2s;
+}
+
+.btn.btn-primary:hover{
+    transform: scale(1.2);
+    transition-duration: 0.2s;
+    z-index: 50;
+}
+.btn.btn-default{
+    transform: scale(1.0);
+    transition-duration: 0.2s;
+}
+.btn.btn-default:hover{
+    transform: scale(1.2);
+    transition-duration: 0.2s;
+}
+
+.btn:focus, 
+.btn:active:focus, 
+.btn.active:focus, 
+.btn.focus, 
+.btn:active.focus, 
+.btn.active.focus {
+	outline: none;
+	outline-offset: none;
+}
+
+
+/*footer*/
+footer#footer{
+	background: #222222;
+	color: #ffffff;
+	padding: 20px 0 15px 0;
+}
+footer#footer .fnav{ vertical-align: middle;}
+ul.footer-social li{
+	display: inline-block;
+	margin-right: 10px;
+}
+footer#footer p{
+	font-size: 12px;
+	margin-top: 10px;
+}
