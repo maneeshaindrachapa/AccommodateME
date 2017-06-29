@@ -24,9 +24,70 @@
         <div class="container">
             <header>
                 <!-- HEADLINE -->
-                <h1 data-animated="GoIn"><b>Welcome <?php echo $_POST["firstName"];?></b> </h1>
+                <h1 data-animated="GoIn"><b>Welcome 
+                    
+                    <?php
+                    //////////////////////////////////////////////////////////
+                    if(strlen($_POST["password"])>=8){
+                    
+                    if(isset($_POST["firstName"]) & isset($_POST["lastName"])& isset($_POST["e_mail"]) & isset($_POST["password"]) & isset($_POST["rPassword"]) & isset($_POST["boarding-owner-or-searcher"])){
+                        if($_POST["password"]!=$_POST["rPassword"]){
+                            header("Location:index.php");
+                            exit;
+                        }
+                        else{echo $_POST["firstName"];}}
+                    else{
+                        header("Location:index.php");
+                        exit;
+                    }}
+                    else{
+                       header("Location:index.php");
+                        exit; 
+                    }
+                    //////////////////////////////////////////////////////////
+                    ?></b> </h1>
+                
             </header>
+                <?php
+                ///////////////////////////////////////////////////////////////
+                    /*$target_dir="uploads/";
+                    $target_file=$target_dir.basename($_FILES["profilepicture"]["name"]);
+                    $uploadOk=1;
+                    $imageFileType=pathinfo($target_file,PATHINFO_EXTENSION);*/
+            
+                    //check if image file is actual
+                   /* if(isset($_POST["submit"])){
+                        $check=getimagesize($_FILES["profilepicture"]["tmp_name"]);
+                        if($check!==flase){
+                            echo "file is an image".$check["mime"].".";
+                            $uploadOK=1;
+                        }else{
+                            echo "file is not an image";
+                            $uploadOK=0;
+                        }
+                        //check if file already exsits
+                        if($_FILES["profilepicture"]["size"]>500000){
+                            echo "Sorry file is too large";
+                            $uploadOK=0;
+                        }
+                    }*/
+                ///////////////////////////////////////////////////////////////
+                ?>
+            
             <div class="col-md-8 col-md-offset-2">
+                <img src="img/team/02.jpg" id="profilePic" width="150px" height="150px">
+                <style>#profilePic{
+                    border-radius: 100%;
+                    transform: scale(1);
+                    transition-duration: 0.2s;
+                    }
+                    #profilePic:hover{
+                        transform: scale(1.2);
+                        transition-duration: 0.2s;            
+                        }
+                </style>
+                <br><br>
+                
             	<h4>Search For a Boarding Place</h4><br><br>
 				<form class="form-inline" role="form">
 				
@@ -35,7 +96,7 @@
                   <div class="col-md-12">
                     <div class="form-group">
                       <label for="noOfPeople">No of People ----</label>
-                        <input type="number" class="form-control" id="noOfPeople" placeholder="Enter Number of People" name="">
+                        <input type="number" min="1"  class="form-control" id="noOfPeople" placeholder="Enter Number of People" name="" value="1">
                       </div>
                     </div></div>
                     
@@ -43,7 +104,7 @@
                     <div class="col-md-12">
                     <div class="form-group">
                       <label for="priceForBoarding">Price ----  </label>
-                        <input type="number" class="form-control" id="priceForBoarbing" placeholder="Price for Boarding place" name="">
+                        <input type="number" min="1000" step="500" class="form-control" id="priceForBoarbing" placeholder="Price for Boarding place" name="" value="1000">
                       </div>
                     </div></div>
                     
@@ -51,16 +112,15 @@
                   <div class="col-md-12">
                     <div class="form-group">
                       <label for="distanceForBoarding">Distance for Boarding ----</label>
-                        <input type="number" class="form-control" id="distanceForBoarding" placeholder="Distance from Boarding" name="">
+                        <input type="number" min="100" step="100" class="form-control" id="distanceForBoarding" placeholder="Distance from Boarding" name="" value="100">
                       </div>
                     </div></div>
                     <br><br><br> 
-				  <button type="submit" class="btn btn-info">Search</button>
+				  <button type="button" class="btn btn-info">Search</button>
 				</form>            
 			</div>
             
         </div>
-        <!-- LAYER OVER THE SLIDER TO MAKE THE WHITE TEXTE READABLE -->
         <div id="layer"></div>
         <!-- END LAYER -->
         
@@ -85,10 +145,10 @@
         <!-- END SLIDER -->
     </section>
  
-    <!-- END HEADER -->
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
+      
     <script src="js/jquery.1.11.1.js"></script>
 	<script type="text/javascript" src="js/modernizr.custom.js"></script>
     <script src="js/bootstrap.min.js"></script>

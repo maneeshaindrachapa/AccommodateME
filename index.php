@@ -1,3 +1,18 @@
+<?php
+////////////////////////////////////////////////////
+      if(isset($_POST["submit"])){
+          $firstname=$_POST["firstName"];
+          $lastname=$_POST["lastName"];
+          $email=$_POST["e_mail"];
+      }else{
+            $firstname="";
+            $lastname="";
+            $email="";
+      }
+///////////////////////////////////////////////////
+      ?>
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -47,11 +62,6 @@
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
             <span class="sr-only">Toggle navigation</span>
-<!--
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
--->
           </button>
           <a class="navbar-brand" href="index.html">Accomodate Me</a>
         </div>
@@ -65,8 +75,8 @@
             <li><a href="#tf-signin" class="page-scroll">Sign In</a></li>
             <li><a href="#tf-signup" class="page-scroll" >Sign Up</a></li>
           </ul>
-        </div><!-- /.navbar-collapse -->
-      </div><!-- /.container-fluid -->
+        </div>
+      </div>
     </nav>
 
     <!-- Home Page
@@ -181,6 +191,7 @@
 
     <!-- Contact Section
     ==========================================-->
+      
     <div id="tf-signin" class="text-center">
         <div class="container">
 
@@ -238,18 +249,18 @@
                 <div class="clearfix"></div>
               </div>
               
-              <form method="post" action="process.php">
+              <form method="post" action="process.php" enctype="multipart/form-data">
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
                       <label for="exampleInputFirstName2">First Name</label>
-                        <input type="text" class="form-control" id="exampleInputFirstName2" placeholder="Enter First Name" name="firstName">
+                        <input type="text" class="form-control" id="exampleInputFirstName2" placeholder="Enter First Name" name="firstName" value="<?php echo htmlspecialchars($firstname); ?>">
                       </div>
                     </div>
                     <div class="col-md-6">
                     <div class="form-group">
                       <label for="exampleInputLastName2">Last Name</label>
-                        <input type="text" class="form-control" id="exampleInputLastName2" placeholder="Enter Last Name" name="lastName">
+                        <input type="text" class="form-control" id="exampleInputLastName2" placeholder="Enter Last Name" name="lastName" value="<?php echo htmlspecialchars($lastname); ?>">
                       </div>
                     </div>
                   </div>
@@ -257,7 +268,7 @@
                   <div class="col-md-12">
                     <div class="form-group">
                       <label for="exampleInputEmail2">Email Address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Enter email" name="e_mail">
+                        <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Enter email" name="e_mail" value="<?php echo htmlspecialchars($email); ?>">
                       </div>
                     </div>
                   </div>
@@ -275,6 +286,16 @@
                       </div>
                     </div>
                   </div>
+                  
+                  <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="profilepicture">Profile Picture</label>
+                        <input type="file" class="form-control" id="profilepicture"  name="profilepicture" >
+                      </div>
+                    </div>
+                  </div>
+                  
                   <div class="row">
 <!--                  <div class="col-md-6">-->
                     <div class="form-group" id="selectType">
@@ -295,7 +316,7 @@
                   </div><br>
                   
                   <h3 id="signUpAlready">Already have an Account <a href="#tf-signin"  class="page-scroll">Sign In</a></h3>
-                  <button type="submit" class="btn tf-btn btn-default">Submit</button>
+                  <button type="submit" class="btn tf-btn btn-default" name="submit" value="Submit">Submit</button>
               </form>
           </div>
         </div>
@@ -307,14 +328,6 @@
         <div class="container">
             <div class="pull-left fnav">
                 <p>ALL RIGHTS RESERVED. COPYRIGHT © 2017. Designed by TeamMILKY &#169;</p>
-            </div>
-            <div class="pull-right fnav">
-                <ul class="footer-social">
-                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                    <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                </ul>
             </div>
         </div>
     </nav>
