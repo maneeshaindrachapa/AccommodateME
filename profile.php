@@ -5,7 +5,7 @@
 
 <!--styles used-->
 <link rel="stylesheet" href="css/bootstrap.css">
-<link rel="stylesheet" href="style_profile.css">
+<link rel="stylesheet" href="css/style_profile.css" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Josefin+Sans|Titillium+Web" rel="stylesheet">
 
 
@@ -87,9 +87,11 @@
             </div>
           </div>
         </form>
+        
       </div>
     </div>
     </div><br><br><br>
+    
     <footer id="footer">
     <div class="container">
         <div class="pull-left fnav">

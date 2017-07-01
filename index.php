@@ -285,9 +285,8 @@
                             <input type="password" class="form-control" id="exampleInputreenterPassword2" placeholder="Re-enter password" name="rPassword">
                       </div>
                     </div>
-                  </div>
-                  
-                  <div class="row">
+                  </div>       
+                <div class="row">
                   <div class="col-md-12">
                     <div class="form-group">
                       <label for="profilepicture">Profile Picture</label>
@@ -297,18 +296,29 @@
                   </div>
                   
                   <div class="row">
-<!--                  <div class="col-md-6">-->
                     <div class="form-group" id="selectType">
                       <label for="selectType">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Select Type</label><br>
                         `
                         <div class="selectType">
                         <label  id="selectOne"  for="exampleInputType1">
-                            <input type="radio" class="form-control" id="exampleInputType1" name="boarding-owner-or-searcher">
+                            <input type="checkbox" class="form-control" id="exampleInputType1" name="boarding-searcher" onclick="selectOnlyThis(this.id)">
                             Boarding Searcher</label><br>
                         </div>
                         
                         <div class="selectType">
-                        <label  id="selectTwo" for="exampleInputType2"><input type="radio" class="form-control" id="exampleInputType2" name="boarding-owner-or-searcher"> Boarding Owner &nbsp;&nbsp;&nbsp;</label>
+                        <label  id="selectTwo" for="exampleInputType2"><input type="checkbox" class="form-control" id="exampleInputType2" name="boarding-owner" onclick="selectOnlyThis(this.id)"> Boarding Owner &nbsp;&nbsp;&nbsp;</label>
+                        
+                        <!--selecting only one from checkbox-->
+                        <script>
+                            function selectOnlyThis(id){
+                                for(var i=1;i<=2;i++){
+                                    document.getElementById("exampleInputType"+i).checked=false;
+                                }
+                                document.getElementById(id).checked=true;
+                            }
+                        </script>    
+                        <!------------------------------------->
+                            
                         </div>
                         
                       </div>

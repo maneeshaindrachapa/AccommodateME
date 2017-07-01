@@ -1,5 +1,5 @@
 body{
-    background-image: url(img/11.jpg);
+    background-image:url(../img/11.jpg);
     background-size: cover;
     font-family: 'Josefin Sans', sans-serif;
 	text-rendering: optimizeLegibility !important;

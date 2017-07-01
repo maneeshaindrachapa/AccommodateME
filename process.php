@@ -11,7 +11,7 @@
     <link href="css/bootstrap.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="style_process.css" rel="stylesheet">
+    <link href="css/process/style_process.css" rel="stylesheet" type="text/css">
 
     
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans|Titillium+Web" rel="stylesheet">
@@ -28,7 +28,7 @@
                     //////////////////////////////////////////////////////////
                     if(strlen($_POST["password"])>=8){
                     
-                    if(isset($_POST["firstName"]) & isset($_POST["lastName"])& isset($_POST["e_mail"]) & isset($_POST["password"]) & isset($_POST["rPassword"]) & isset($_POST["boarding-owner-or-searcher"])){
+                    if(isset($_POST["firstName"]) & isset($_POST["lastName"])& isset($_POST["e_mail"]) & isset($_POST["password"]) & isset($_POST["rPassword"]) & (isset($_POST["boarding-searcher"]) || isset($_POST["boarding-owner"]))){
                         if($_POST["password"]!=$_POST["rPassword"]){
                             header("Location:index.php");
                             exit;
@@ -141,7 +141,7 @@
                 <div class="row">
                   <div class="col-md-12">
                     <div class="form-group">
-                      <label for="noOfPeople">No of People ----</label>
+                      <label for="noOfPeople">No of People :</label>
                         <input type="number" min="1"  class="form-control" id="noOfPeople" placeholder="Enter Number of People" name="" value="1">
                       </div>
                     </div></div>
@@ -149,7 +149,7 @@
                 <div class="row">
                     <div class="col-md-12">
                     <div class="form-group">
-                      <label for="priceForBoarding">Price ----  </label>
+                      <label for="priceForBoarding">Price: </label>
                         <input type="number" min="1000" step="500" class="form-control" id="priceForBoarbing" placeholder="Price for Boarding place" name="" value="1000">
                       </div>
                     </div></div>
@@ -157,44 +157,37 @@
                 <div class="row">
                   <div class="col-md-12">
                     <div class="form-group">
-                      <label for="distanceForBoarding">Distance for Boarding ----</label>
+                      <label for="distanceForBoarding">Distance for Boarding:</label>
                         <input type="number" min="100" step="100" class="form-control" id="distanceForBoarding" placeholder="Distance from Boarding" name="" value="100">
                       </div>
                     </div></div>
-                    <br><br><br> 
+                    <br> 
 				  <button type="button" class="btn btn-info">Search</button>
 				</form>            
-			</div>  
-        </div>
+			</div>
+            </div>
         
         
         <!-- START SLIDER -->
         <div id="slider" class="rev_slider">
             <ul>
-              <li data-transition="slideleft" data-slotamount="1" data-thumb="img/03.jpg">
-                <img src="img/03.jpg">
+              <li data-transition="slideleft" data-slotamount="1" data-thumb="img/slider/01.jpg">
+                <img src="img/slider/01.jpg">
               </li>
-              <li data-transition="slideleft" data-slotamount="1" data-thumb="img/04.jpg">
-                <img src="img/04.jpg">
+              <li data-transition="slideleft" data-slotamount="1" data-thumb="img/slider/02.jpg">
+                <img src="img/slider/02.jpg">
               </li>
-              <li data-transition="slideleft" data-slotamount="1" data-thumb="img/05.jpg">
-                <img src="img/05.jpg">
+              <li data-transition="slideleft" data-slotamount="1" data-thumb="img/slider/03.jpg">
+                <img src="img/slider/03.jpg">
               </li>
-              <li data-transition="slideleft" data-slotamount="1" data-thumb="img/10.jpg">
-                <img src="img/10.jpg">
+              <li data-transition="slideleft" data-slotamount="1" data-thumb="img/slider/04.jpg">
+                <img src="img/slider/04.jpg">
               </li>
             </ul>
         </div>
         
     <!-- END SLIDER -->
     </section>
-      <nav id="footer">
-        <div class="container">
-            <div class="pull-left fnav">
-                <p>ALL RIGHTS RESERVED. COPYRIGHT © 2017. Designed by TeamMILKY &#169;</p>
-            </div>
-        </div>
-    </nav>
   </body>
   <!-- END BODY -->
      <!-- Bootstrap core JavaScript
