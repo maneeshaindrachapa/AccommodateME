@@ -1,17 +1,9 @@
 <?php
-////////////////////////////////////////////////////
-      if(isset($_POST["submit"])){
-          $firstname=$_POST["firstName"];
-          $lastname=$_POST["lastName"];
-          $email=$_POST["e_mail"];
-      }else{
-            $firstname="";
-            $lastname="";
-            $email="";
-      }
-///////////////////////////////////////////////////
-      ?>
-
+//////////////////////////////////////////////////////////////////////////////////////
+require 'database/connect.inc.php';
+include 'php/form_checking.php';
+///////////////////////////////////////////////////////////////////////////////////////////
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -191,6 +183,7 @@
 
     <!-- Contact Section
     ==========================================-->
+      <!---Sign in-------->
       
     <div id="tf-signin" class="text-center">
         <div class="container">
@@ -203,29 +196,28 @@
                         <div class="line">
                             <hr>
                         </div>
-                        <div class="clearfix"></div>
-                        <!--small><em>Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.</em></small-->            
+                        <div class="clearfix"></div>            
                     </div>
 
-                    <form method="post" action="process.php">
+                    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Email address</label>
-                                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email" name="email_signin"><span><?php echo $noAccount;?></span>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="exampleInputPassword1">Password</label>
-                                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                                    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="password_signin"><span><?php echo $passwordErr;?></span>
                                 </div>
                             </div>
                             <br><br><br>
                             <h3 id="signInForget">Forget Password? <a href=# >Click here</a></h3>
                             <h3 id="signInAlready">Not yet Registered? <a href="#tf-signup" class="page-scroll">Sign Up</a></h3> <br> 
                         </div>
-                        <button type="submit" class="btn tf-btn btn-default">Submit</button>
+                        <button type="submit" class="btn tf-btn btn-default" name="submit_signin">Submit</button>
                     </form>
                 </div>
             </div>
@@ -249,18 +241,18 @@
                 <div class="clearfix"></div>
               </div>
               
-              <form method="post" action="process.php" enctype="multipart/form-data">
+              <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"enctype="multipart/form-data">
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
                       <label for="exampleInputFirstName2">First Name</label>
-                        <input type="text" class="form-control" id="exampleInputFirstName2" placeholder="Enter First Name" name="firstName" value="<?php echo htmlspecialchars($firstname); ?>">
+                        <input type="text" class="form-control" id="exampleInputFirstName2" placeholder="Enter First Name" name="firstName" value="<?php print $firstName; ?>"><span><?php echo $error_message_FN;?></span>
                       </div>
                     </div>
                     <div class="col-md-6">
                     <div class="form-group">
                       <label for="exampleInputLastName2">Last Name</label>
-                        <input type="text" class="form-control" id="exampleInputLastName2" placeholder="Enter Last Name" name="lastName" value="<?php echo htmlspecialchars($lastname); ?>">
+                        <input type="text" class="form-control" id="exampleInputLastName2" placeholder="Enter Last Name" name="lastName" value="<?php print $lastName; ?>"><span><?php echo $error_message_LN;?></span>
                       </div>
                     </div>
                   </div>
@@ -268,7 +260,7 @@
                   <div class="col-md-12">
                     <div class="form-group">
                       <label for="exampleInputEmail2">Email Address</label>
-                        <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Enter email" name="e_mail" value="<?php echo htmlspecialchars($email); ?>">
+                        <input type="email" class="form-control" id="exampleInputEmail2" placeholder="Enter email" name="email" value="<?php print $email; ?>"><span><?php echo $accountAlreadyThere." ".$error_message_EM;?></span>
                       </div>
                     </div>
                   </div>
@@ -276,13 +268,13 @@
                     <div class="col-md-6">
                     <div class="form-group">
                       <label for="exampleInputPassword2">Password</label>
-                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="password">
+                        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="password" value="<?php print $password ?>"><span><?php echo $error_message_PW; ?></span>
                       </div>
                 </div>
                     <div class="col-md-6">
                         <div class="form-group">
                         <label for="exampleInputreenterPassword2">Re-enter Password</label>
-                            <input type="password" class="form-control" id="exampleInputreenterPassword2" placeholder="Re-enter password" name="rPassword">
+                            <input type="password" class="form-control" id="exampleInputreenterPassword2" placeholder="Re-enter password" name="re_password" value="<?php print $re_password ?>"><span><?php echo $error_message_RPW;?></span>
                       </div>
                     </div>
                   </div>       
@@ -306,7 +298,9 @@
                         </div>
                         
                         <div class="selectType">
-                        <label  id="selectTwo" for="exampleInputType2"><input type="checkbox" class="form-control" id="exampleInputType2" name="boarding-owner" onclick="selectOnlyThis(this.id)"> Boarding Owner &nbsp;&nbsp;&nbsp;</label>
+                        <label  id="selectTwo" for="exampleInputType2">
+                            <input type="checkbox" class="form-control" id="exampleInputType2" name="boarding-owner" onclick="selectOnlyThis(this.id)">
+                            Boarding Owner &nbsp;&nbsp;&nbsp;</label>
                         
                         <!--selecting only one from checkbox-->
                         <script>
@@ -322,11 +316,10 @@
                         </div>
                         
                       </div>
-<!--                    </div>-->
                   </div><br>
-                  
+                  <span><?php echo $fillAllData;?></span>
                   <h3 id="signUpAlready">Already have an Account <a href="#tf-signin"  class="page-scroll">Sign In</a></h3>
-                  <button type="submit" class="btn tf-btn btn-default" name="submit" value="Submit">Submit</button>
+                  <button type="submit" class="btn tf-btn btn-default" name="submit_signup" value="Submit">Submit</button>
               </form>
           </div>
         </div>

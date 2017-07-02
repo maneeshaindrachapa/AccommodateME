@@ -416,7 +416,9 @@ button.btn.tf-btn.btn-default:hover{
 #signin-bottom-line,#signup-bottom-line{
     width:60%;  
 }
-
+span{
+    color: crimson;
+}
 
 /* Footer */
 nav#footer{
