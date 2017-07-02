@@ -11,10 +11,9 @@
     <link href="css/bootstrap.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="css/process/style_process.css" rel="stylesheet" type="text/css">
-
-    
-    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans|Titillium+Web" rel="stylesheet">
+    <link href="css/style_process.css" rel="stylesheet" type="text/css">
+      
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
   </head>
     
   <body class="nomobile">

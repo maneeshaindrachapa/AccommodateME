@@ -40,14 +40,14 @@
 
         <form class="form-horizontal" role="form">
           <div class="form-group">
-            <label class="col-lg-3 control-label">First name:</label>
+            <label class="col-lg-3 control-label">First Name:</label>
             <div class="col-lg-8">
               <input class="form-control" type="text" value="">
             </div>
           </div>
 
           <div class="form-group">
-            <label class="col-lg-3 control-label">Last name:</label>
+            <label class="col-lg-3 control-label">Last Name:</label>
             <div class="col-lg-8">
               <input class="form-control" type="text" value="">
             </div>

@@ -1,7 +1,11 @@
+@import url(https://fonts.googleapis.com/css?family=Roboto:400,900,700,500,300,100);
+@import url(https://fonts.googleapis.com/css?family=Raleway:400,500);
+
+
 body{
     background-image:url(../img/11.jpg);
     background-size: cover;
-    font-family: 'Josefin Sans', sans-serif;
+    font-family: 'Raleway',sans-serif;
 	text-rendering: optimizeLegibility !important;
 	-webkit-font-smoothing: antialiased !important;
 	color: #FFF;
@@ -31,7 +35,7 @@ h4{
 
 h5{
 	text-transform: uppercase;
-	font-weight: 700;
+	font-weight: 300;
 	line-height: 20px;
 }
 p{
@@ -52,6 +56,7 @@ a:focus{
 }
 label{
     font-size: 18px;
+    font-weight: 300;
 }
 label,i{
     color: #FFFFFF;
