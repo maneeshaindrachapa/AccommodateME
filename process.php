@@ -1,3 +1,13 @@
+<?php
+////////////////////////////////////////////////////
+//if(!isset($_POST['submit_signup']) || !isset($_POST['sumbit_signin'])){
+//    header('location:index.php');
+//}
+////////////////////////////////////////////////////
+?>
+
+
+
 <!DOCTYPE html>
 <html>
   <head>
