@@ -21,7 +21,7 @@
         <div class="container">
             <header>
                 <!-- HEADLINE -->
-                <h1 data-animated="GoIn"><b>Welcome 
+                <h1 data-animated="GoIn"><b>Welcome!
                 </b></h1>
                 
             </header>

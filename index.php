@@ -213,10 +213,11 @@ include 'php/form_checking.php';
                                     <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="password_signin"><span><?php echo $passwordErr;?></span>
                                 </div>
                             </div>
-                            <br><br><br>
+                            
+                        </div>
+                        <br>
                             <h3 id="signInForget">Forget Password? <a href=# >Click here</a></h3>
                             <h3 id="signInAlready">Not yet Registered? <a href="#tf-signup" class="page-scroll">Sign Up</a></h3> <br> 
-                        </div>
                         <button type="submit" class="btn tf-btn btn-default" name="submit_signin">Submit</button>
                     </form>
                 </div>

@@ -11,12 +11,21 @@ $fillAllData=$accountAlreadyThere="";
 $passwordErr= $noAccount="";
 ////////////////////////////////////////////
 
+////////////////////////////////////////////
+session_start();
+////////////////////////////////////////////
+
 $owner_status='unchecked';
 $searcher_status='unchecked';
 if(isset($_POST['submit_signup'])) {
     $firstName = $_POST['firstName'];
     $lastName = $_POST['lastName'];
-    $email = $_POST['email'];
+    $email =$_SESSION['email']= $_POST['email'];
+    
+    ////////////////////////////////////////////
+    $_SESSION['email_signin']="";
+    ////////////////////////////////////////////
+    
     $password = $_POST['password'];
     $re_password = $_POST['re_password'];
     $searcher_status=isset($_POST['boarding-searcher'])?"checked":"unchecked";
@@ -26,6 +35,7 @@ if(isset($_POST['submit_signup'])) {
     if($searcher_status=='unchecked'){
         $type='owner';
     }
+    
     //////////////////////////////////////////
     //error checking
     $string_exp = "/^[A-Za-z0-9 .'-]+$/";
@@ -48,8 +58,8 @@ if(isset($_POST['submit_signup'])) {
     //////////////////////////////////////////
 
     
-    if((strlen($error_message_FN)>0) || (strlen($error_message_LN))>0 ||(strlen($error_message_EM)>0)){
-        
+    if((strlen($error_message_FN)>0) || (strlen($error_message_LN))>0 ||(strlen($error_message_EM)>0) || (($password)!=$re_password)){
+        //Returning to index.php using $_SERVER['PHP_SELF']
     }
     else{
         if(isset($_POST['firstName']) && isset($_POST['lastName']) && isset($_POST['email']) && isset($_POST['password']) && isset($_POST['re_password']) && (($searcher_status=='checked')||($owner_status=='checked')) ){
@@ -57,8 +67,9 @@ if(isset($_POST['submit_signup'])) {
             $query="SELECT * FROM users WHERE email='$email'";
             if($query_run=mysqli_query($db, $query)){
                 if(is_null(mysqli_fetch_assoc($query_run))){
-                        $query_add="INSERT INTO users VALUES(NULL, '$firstName', '$lastName', '$email', '$password', '$type', '$date')";
+                        $query_add="INSERT INTO users VALUES(NULL, '$firstName', '$lastName', '$email', '$password', '$type', '$date',NULL)";
                         if(mysqli_query($db, $query_add)){
+                            echo 'ass';
                             $firstName='';
                             $lastName='';
                             $email='';
@@ -73,6 +84,8 @@ if(isset($_POST['submit_signup'])) {
         }else{
             $fillAllData='*Fill All Data to Make the Account!';
         }
+    //if all details in sign-up is correct load in to process.php
+    header("location:process.php");
     }
 }else{
     $firstName='';
@@ -84,8 +97,12 @@ if(isset($_POST['submit_signup'])) {
 
 /* Signin page
     ===========================================*/
-if(isset($_POST['submit_signin'])) {
-    $email_input = $_POST['email_signin'];
+if(isset($_POST['submit_signin'])){
+    /////////////////////////
+    $_SESSION['email']="";
+    /////////////////////////
+    
+    $email_input =$_SESSION['email_signin']= $_POST['email_signin'];
     $password_input=$_POST['password_signin'];
     $query="SELECT * FROM users WHERE email='$email_input'";
     if($query_run=mysqli_query($db, $query)){
@@ -94,6 +111,8 @@ if(isset($_POST['submit_signin'])) {
                 while ($row = mysqli_fetch_assoc($query_run)) {
                     $password_db=$row['password'];
                     if($password_input==$password_db){
+                        //if all details in sign-in is correct then load in to process.php
+                        header("location:process.php");
                     }else{
                         $passwordErr= 'Invalid Password.';
                     }
