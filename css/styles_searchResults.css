@@ -844,3 +844,8 @@ section#content #search-res ul li .overlay .addCart h2 .fa-shopping-cart{
     transition-duration: 0.2s;
 }
 
+.resPages{
+    font-size: 15px;
+    color: #fff;
+}
+

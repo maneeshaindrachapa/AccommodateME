@@ -28,8 +28,8 @@ include 'php/profile_checking.php';
           <div class="col-md-3">
             <div class="text-center">
               <img src="img/team/02.jpg" class="avatar img-circle" alt="avatar" height="150px" width="150px">
-              <h6>Upload a different photo...</h6>
-
+              <h6>Upload a Different Photo</h6>
+              <h6>&#91;Use 1024&nbsp;&chi;&nbsp;1024px Photo&#93;</h6>
               <input type="file" class="form-control">
             </div>
           </div>
@@ -38,11 +38,6 @@ include 'php/profile_checking.php';
 
         <!-- edit form column -->
         <div class="col-md-9 personal-info">
-        <div class="alert alert-info alert-dismissable">
-          <a class="panel-close close" data-dismiss="alert">×</a> 
-          <i class="fa fa-coffee"></i>
-          Edit <strong>profile Details</strong>
-        </div>
         <h3>Personal Informations</h3>
 
         <form class="form-horizontal" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
@@ -99,13 +94,7 @@ include 'php/profile_checking.php';
     </div>
     </div><br><br><br>
     
-    <footer id="footer">
-    <div class="container">
-        <div class="pull-left fnav">
-            <p>ALL RIGHTS RESERVED. COPYRIGHT © 2017. Designed by TeamMILKY &#169;</p>
-            </div>
-        </div>
-    </footer>
+   
     
 </body>
 </html>

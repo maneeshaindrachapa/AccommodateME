@@ -1,3 +1,10 @@
+<?php
+//////////////////////////////////////////////////////
+require 'database/connect.inc.php';
+include 'php/add_boarding.php';
+//////////////////////////////////////////////////////
+?>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -23,68 +30,68 @@
         <div class="container">            
             <div class="col-md-8 col-md-offset-2">
             	<h1>Add a Boarding place</h1><br><br>
-                <form class="login-form">
+                <form class="login-form" method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" enctype="multipart/form-data">
                   <div class="form-group">
                       Email:
                       <div class="input-group">
-                          <input type="email" class="form-control" placeholder="Type your email">
+                          <input type="email" class="form-control" placeholder="Type your email" name="email" value="<?php print $email;?>">
                       </div>
                   </div>
                   <div class="form-group">
                       Password:
                       <div class="input-group">
-                          <input type="password" class="form-control" placeholder="Type your password">
+                          <input type="password" class="form-control" placeholder="Type your password" name="password" value="<?php print $password;?>">
                       </div>
                   </div>
                   <div class="form-group">
                       No of Students:
                       <div class="input-group">
-                          <input type="number" class="form-control" placeholder="Add No of Students" value="1" min="1">
+                          <input type="number" class="form-control" placeholder="Add No of Students" value="<?php print $studentCount;?>" min="1" name="studentCount">
                       </div>
                   </div>
                   <div class="form-group">
                       Price for Boarding Place:
                       <div class="input-group">
-                          <input type="number" class="form-control" placeholder="Add Price for Boarding Place" value="500" min="500" step="100">
+                          <input type="number" class="form-control" placeholder="Add Price for Boarding Place" value="<?php print $price;?>" min="500" step="100" name='price'>
                       </div>
                   </div>
                   <div class="form-group">
                       Distance from University:
                       <div class="input-group">
-                          <input type="number" class="form-control" placeholder="Add Distance from University" value="100" min="100" step="100">
+                          <input type="number" class="form-control" placeholder="Add Distance from University" value="<?php print $distance; ?>" min="100" step="100" name="distance">
                       </div>
                   </div>
 
                   <div class="form-group">
                       Add Picture of Boarding place:
                       <div class="input-group">
-                          <input type="file" class="form-control" placeholder="">
+                          <input type="file" class="form-control" placeholder="" name="photo_1">
                       </div>
                   </div>
                   <div class="form-group">
                       <div class="input-group">
-                          <input type="file" class="form-control" placeholder="">
+                          <input type="file" class="form-control" placeholder="" name="photo_2">
                       </div>
                   </div>
                   <div class="form-group">
                       <div class="input-group">
-                          <input type="file" class="form-control" placeholder="">
+                          <input type="file" class="form-control" placeholder="" name='photo_3'>
                       </div>
                   </div>
                   <div class="form-group">
                       <div class="input-group">
-                          <input type="file" class="form-control" placeholder="">
+                          <input type="file" class="form-control" placeholder="" name="photo_4">
                       </div>
                   </div>
                   <div class="form-group">
                       <div class="input-group">
-                          <input type="file" class="form-control" placeholder="">
+                          <input type="file" class="form-control" placeholder="" name="photo_5">
                       </div>
                   </div>
 
                   <div class="form-group">
                       <div class="input-group">
-                          <button type="Submit" class="btn btn-primary" >Save Changes</button><span> </span>
+                          <button type="submit" class="btn btn-primary" name='submit'>Save Changes</button><span> </span>
                           <button type="reset" class="btn btn-default" style="color:black;">Cancel</button>
                       </div>
                   </div>
@@ -95,7 +102,7 @@
         
         
         <!-- START SLIDER -->
-        <div id="slider" class="rev_slider">
+        <!--div id="slider" class="rev_slider">
             <ul>
               <li data-transition="slideleft" data-slotamount="1" data-thumb="img/addBoarding/01_1.jpg">
                 <img src="img/addBoarding/01_1.jpg">

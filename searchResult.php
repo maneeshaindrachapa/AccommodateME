@@ -157,7 +157,22 @@
 
 </ul>
 </div>
+        
         <div class="col-md-8 col-md-offset-2">
+            <span class="resPages"><a href="#">&#91;04&#93;&nbsp;</a></span>
+        <span class="resPages"><a href="#">&#91;03&#93;&nbsp;</a></span>
+        <span class="resPages"><a href="#">&#91;02&#93;&nbsp;</a></span>
+        <span class="resPages"><a href="#">&#91;01&#93;&nbsp;</a></span>
+            <style>
+            .resPages{
+                font-size: 15px;
+                color: #fff;
+                float: right;
+            }
+            .resPages:hover{
+                color:#FCAC45;
+            }
+            </style>
         <h3 class="row">Search For a Boarding Place</h3><br>
 				<form class="form-inline" role="form">
 				

@@ -266,6 +266,14 @@ include 'php/form_checking.php';
                     </div>
                   </div>
                 <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="exampleInputTelNo">Telephone</label>
+                        <input type="tel" class="form-control" id="exampleInputtelNo" placeholder="07x-xxx-xxx" name="telNo" value="<?php print $telephone; ?>"><span><?php echo $error_message_TEL; ?></span>
+                      </div>
+                    </div>
+                  </div>
+                <div class="row">
                     <div class="col-md-6">
                     <div class="form-group">
                       <label for="exampleInputPassword2">Password</label>
