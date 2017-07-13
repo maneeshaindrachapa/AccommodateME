@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 10, 2017 at 03:35 PM
+-- Generation Time: Jul 13, 2017 at 08:44 AM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -31,15 +31,22 @@ CREATE TABLE `boarding_details` (
   `userID` int(11) NOT NULL,
   `studentCount` int(11) NOT NULL,
   `price` decimal(10,0) NOT NULL,
-  `distance` int(11) NOT NULL
+  `distance` int(11) NOT NULL,
+  `address` varchar(80) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `boarding_details`
 --
 
-INSERT INTO `boarding_details` (`boardingID`, `userID`, `studentCount`, `price`, `distance`) VALUES
-(8, 51, 20, '500000', 200);
+INSERT INTO `boarding_details` (`boardingID`, `userID`, `studentCount`, `price`, `distance`, `address`) VALUES
+(8, 51, 20, '500000', 200, ''),
+(10, 51, 20, '20000000', 8500, 'adasdasdasdsd'),
+(11, 51, 200, '9999999999', 2147483647, 'jhgfdsa'),
+(12, 51, 200, '9999999999', 2147483647, 'jhgfdsa'),
+(13, 51, 20, '85000', 4500, 'asadsdsadsd'),
+(14, 51, 20, '85000', 4500, 'fdfbdfbfdbfd'),
+(15, 51, 20, '85000', 4500, 'sssssssssssss');
 
 -- --------------------------------------------------------
 
@@ -67,7 +74,9 @@ INSERT INTO `users` (`userID`, `firstName`, `lastName`, `email`, `password`, `te
 (15, 'Yasiruasdfff', 'Samarasekara', 'yasiru@gmail.com', '123', 0, 'searcher', '17-07-01', 0),
 (43, 'maneesha', 'indrachapa', 'maneesh.15@cse.mrt.ac.lk', '123123123', 774301326, 'searcher', '17-07-09', NULL),
 (50, 'maneesha', 'indrachapa', 'maneeshaindrachapa@gmail.com', '123123123', 774301326, 'searcher', '17-07-09', NULL),
-(51, 'a', 'a', 'aaacf@gmail.com', '123123123', 774301326, 'owner', '17-07-10', NULL);
+(51, 'a', 'a', 'aaacf@gmail.com', '123123123', 774301326, 'owner', '17-07-10', NULL),
+(52, 'bnhj', 'bmh', 'jkfs@gmmail.com', '123123123', 774301326, 'searcher', '17-07-12', NULL),
+(53, 'bnhj', 'bmh', 'jkfs@gmjkmail.com', '456456456', 774301326, 'owner', '17-07-12', NULL);
 
 --
 -- Indexes for dumped tables
@@ -93,12 +102,12 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `boarding_details`
 --
 ALTER TABLE `boarding_details`
-  MODIFY `boardingID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `boardingID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
+  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

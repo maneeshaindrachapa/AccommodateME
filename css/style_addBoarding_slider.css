@@ -28,12 +28,12 @@ h4{
 h1, h2, h3 {
     margin-top: 1px;
     font-weight: 100;
-    text-transform: uppercase;
     margin-bottom: 30px;
 }
 h1{
 	font-size: 70px;
 	color:white;
+    font-family: 'Raleway',sans-serif;;
 }
 
 h2{ color: #dc7075;}
@@ -47,12 +47,13 @@ a:hover, a:focus {
 HEADER
 *******************************************************************************************************************************/
 #header .container{
+    font-family: 'Raleway',sans-serif;
     color: #FFF;
-    text-align: left;
+    text-align: center;
     font-size: 20px;
     position: relative;
     z-index: 2;
-    padding: 80px 0;
+    padding: 80px 10px;
 }
 
 #slider{

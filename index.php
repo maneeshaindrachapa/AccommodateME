@@ -55,7 +55,7 @@ include 'php/form_checking.php';
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
             <span class="sr-only">Toggle navigation</span>
           </button>
-          <a class="navbar-brand" href="index.html">Accomodate Me</a>
+          <a class="navbar-brand" href="index.php">Accomodate Me</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->

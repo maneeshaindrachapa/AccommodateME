@@ -1,6 +1,10 @@
 <?php
 require 'phpmail.php';
 
+////////////////////////////////////////////
+session_start();
+////////////////////////////////////////////
+
 /* Signup page
 ===========================================*/
 
@@ -13,9 +17,7 @@ $fillAllData=$accountAlreadyThere="";
 $passwordErr= $noAccount="";
 ////////////////////////////////////////////
 
-////////////////////////////////////////////
-session_start();
-////////////////////////////////////////////
+
 
 $owner_status='unchecked';
 $searcher_status='unchecked';
@@ -24,9 +26,7 @@ if(isset($_POST['submit_signup'])) {
     $lastName = $_POST['lastName'];
     $email =$_SESSION['email']= $_POST['email'];
     
-    ////////////////////////////////////////////
-    $_SESSION['email_signin']="";
-    ////////////////////////////////////////////
+    
     
     $password = $_POST['password'];
     $re_password = $_POST['re_password'];
@@ -88,11 +88,11 @@ if(isset($_POST['submit_signup'])) {
                 }
             }
             //if all details in sign-up is correct load in to process.php
-            $bodyContent="Hi $firstName";
-            $sender='accomodateme@gmail.com';
-            sendMail($email,$bodyContent,$sender);
-            $email='';
-            //header("location:process.php");
+            if($searcher_status=='checked'){
+                header("location:process.php");
+            }elseif($owner_status=='checked'){
+                header("location:process_1.php");
+            }
         }else{
             $fillAllData='*Fill All Data to Make the Account!';
         }
@@ -115,7 +115,7 @@ if(isset($_POST['submit_signin'])){
     $_SESSION['email']="";
     /////////////////////////
     
-    $email_input =$_SESSION['email_signin']= $_POST['email_signin'];
+    $email_input =$_SESSION['email']= $_POST['email_signin'];
     $password_input=$_POST['password_signin'];
     $query="SELECT * FROM users WHERE email='$email_input'";
     if($query_run=mysqli_query($db, $query)){
@@ -124,8 +124,13 @@ if(isset($_POST['submit_signin'])){
                 while ($row = mysqli_fetch_assoc($query_run)) {
                     $password_db=$row['password'];
                     if($password_input==$password_db){
-                        //if all details in sign-in is correct then load in to process.php
-                        header("location:process.php");
+                        $type_db=$row['type'];
+                        if($type_db=='owner'){
+                             header("location:process_1.php");
+                        }
+                        else{//if all details in sign-in is correct then load in to process.php
+                            header("location:process.php");
+                        }
                     }else{
                         $passwordErr= 'Invalid Password.';
                     }

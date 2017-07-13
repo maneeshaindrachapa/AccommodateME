@@ -18,7 +18,7 @@
     <title>AccomodateMe</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/bootstrap.css" rel="stylesheet" type="text/css">
 
     <!-- Custom styles for this template -->
     <link href="css/style_process.css" rel="stylesheet" type="text/css">
@@ -27,8 +27,6 @@
   </head>
     
   <body class="nomobile">
-      
-      
     <section id="header">
         <div style="float:right" class='log_out'>
             <form align="right" name="form1" method="post" action="php/logout.php">
@@ -37,7 +35,6 @@
               </label>
             </form>
             </div>
-        
         <div class="container">
             <header>
                 <!-- HEADLINE -->
@@ -106,8 +103,18 @@
                     }
                 </style>
             <!--------------->
-                
-            	<h4>Search For a Boarding Place</h4><br><br>
+                <h3 class='addboarding_link'><a href=addBoarding.php>Add a Boarding Place</a></h3><br>
+                <style>
+                    .addboarding_link{
+                        transform: scale(1.0);
+                        transition-duration: 0.2s;
+                    }
+                    .addboarding_link:hover{
+                        transform: scale(1.2);
+                        transition-duration: 0.2s;
+                    }
+                </style>
+            	<h4>Search For a Boarding Place</h4><br>
 				<form class="form-inline" role="form">
 				
                       

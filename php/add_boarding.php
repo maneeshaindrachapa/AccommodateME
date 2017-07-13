@@ -1,21 +1,38 @@
 <?php
-require 'database/connect.inc.php';
-echo "<script type='text/javascript'>alert('a');</script>";
+require 'connect.inc.php';
+
+//////////////////////////////////////////////
+session_start();
+
+$email=$_SESSION['email'];
+/////////////////////////////////////////////
+
+//////////////////////////////////////////////
+//file uploading errors
+$error_1=$error_2=$error_3='';
+
+//other errors
+$fill_all=$error_password=$error_email='';
+///////////////////////////////////////////////
+
+
+
 if(isset($_POST['submit'])){
-    $email=$_POST['email'];
+    $email=$_SESSION['email'];
     $password=$_POST['password'];
     $studentCount=$_POST['studentCount'];
     $price=$_POST['price'];
     $distance=$_POST['distance'];
+    $address=$_POST['address'];
     
     $photo_array=array('photo_1','photo_2','photo_3','photo_4','photo_5');
     $allPhotosFilled=1;
     for($num=0; $num<5; $num++){
         $allPhotosFilled=($allPhotosFilled)&&($_FILES[$photo_array[$num]]['name']!='');
     }
-
-    if(($email!='') && ($password!='') && ($studentCount!='') && ($price!='') && ($distance!='') && ($allPhotosFilled)){
-        echo "<script type='text/javascript'>alert('acdcdcsdsdc');</script>";
+   
+    if(($email!='') && ($password!='') && ($studentCount!='') && ($price!='') && ($distance!='') && ($address!='') && ($allPhotosFilled)){
+       
         /*finding the user id
         =====================*/
         $query_select="SELECT * FROM users WHERE email='$email'";
@@ -29,14 +46,14 @@ if(isset($_POST['submit'])){
                     /*adding boarding data to database
                     ==================================*/
                     if($password==$password_db){
-                        $query_add = "INSERT INTO boarding_details VALUES(NULL, '$userID', '$studentCount', '$price', '$distance')";
+                        $query_add = "INSERT INTO boarding_details VALUES(NULL, '$userID', '$studentCount', '$price', '$distance','$address')";
                         if (mysqli_query($db, $query_add)) {
-                            $firstName = '';
-                            $lastName = '';
-                            $email = '';
+                            $price = '500';
+                            $studentCount = '1';
                             $password = '';
-                            $re_password = '';
-                            echo 'successfully added!';
+                            $distance = '100';
+                            $address='';
+                            //echo 'successfully added!';
                             
                             /*finding the last boarding ID (boarding ID of the current boarding input)
                             =========================================================================*/
@@ -72,13 +89,13 @@ if(isset($_POST['submit'])){
                                                         if (move_uploaded_file($file_tmp_name, "$location/" . $new_file_name)) {
                                                             echo 'uploaded';
                                                         } else {
-                                                            echo 'There was an error uploading the file '.$file_name;
+                                                            $error_1= '*There was an error uploading the file '.$file_name.' ';
                                                         }
                                                     }else{
-                                                        echo 'file must be jpg/jpeg and must be 5MB or less.';
+                                                        $error_2= '*file must be jpg/jpeg and must be 5MB or less. ';
                                                     }
                                                 }else{
-                                                    echo 'please choose a file';
+                                                    $error_3= '*please choose an image ';
                                                 }
                                             }
                                         }
@@ -88,26 +105,26 @@ if(isset($_POST['submit'])){
                             }
 
                         } else {
-                            echo 'adding failed.';
                         }
                     }else{
-                        echo 'invalid password!';
+                        $error_password= '*invalid password!';
                         $password='';
                     }
                 }
             }
         }else{
-            echo 'Your email does not exist!';
-        }
-
+            echo "<script type='text/javascript'>alert('ass')</script>";
+            $error_email= '*Your email does not exist!';
+        }      
+//    }
     }else{
-        echo 'fill all the data.';
+        $fill_all= '*fill all the data.';
     }
 }else{
-    $email='';
     $password='';
     $studentCount='';
     $price='';
     $distance='';
+    $address='';
 }
 ?>

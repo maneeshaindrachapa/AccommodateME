@@ -2,11 +2,12 @@
 require 'connect.inc.php';
 //////////////////////////////////////////////////////////////////////////////////////
 session_start();
-if(strlen($_SESSION['email'])>0){
-    $email = $_SESSION['email'];
-}elseif(strlen($_SESSION['email_signin'])>0){
-    $email=$_SESSION['email_signin'];
-}
+//if(strlen($_SESSION['email'])>0){
+//    $email = $_SESSION['email'];
+//}elseif(strlen($_SESSION['email_signin'])>0){
+//    $email=$_SESSION['email_signin'];
+//}
+$email=$_SESSION['email'];
 ////////////////////////////////////////////////////////////
 
 $sql1 = "SELECT firstName FROM users WHERE email='$email' ";
