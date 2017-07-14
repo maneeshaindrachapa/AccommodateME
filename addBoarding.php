@@ -20,7 +20,11 @@ include 'php/add_boarding.php';
     <!-- Custom styles for this template -->
         <link href="css/style_addBoarding_slider.css" rel="stylesheet" type="text/css">
         <link href="css/style_addBoarding.css" rel="stylesheet" type="text/css">
-      
+    
+    <!--Alerts-->
+      <script src="alert/sweetalert.min.js"></script>
+      <link rel="stylesheet" type="text/css" href="alert/sweetalert.css">
+
     
     <link href="https://fonts.googleapis.com/css?family=Josefin+Sans|Titillium+Web" rel="stylesheet">
   </head>
@@ -109,12 +113,22 @@ include 'php/add_boarding.php';
                     <br><br>    
                   <div class="form-group">
                       <div class="input-group">
-                          <button type="submit" class="btn btn-primary" name='submit'>Save Changes</button><span> </span>
+                          <button type="submit" class="btn btn-primary" name='submit'>Save Changes</button><span></span>
                           <button type="reset" class="btn btn-default" style="color:black;">Cancel</button>
+                          
+                          <?php
+                          ////////////////////////////////////////////
+                          if(strlen($fill_all)==0 && strlen($error_password)==0 && strlen($error_1)==0 && strlen($error_2)==0 && strlen($error_3)==0 && strlen($error_alert)==0 ){
+                            echo '<script>swal("Done", "Boarding Added Successfully!", "success")</script>';
+                          }
+                          ////////////////////////////////////////////
+                          ?>
+                          
                       </div>
                   </div>
 
               </form>
+                <button style="float:right" class="btn btn-primary" onclick="history.go(-1);"><a href="" style="color:white;text-decoration:none">Go to Previous Page</a></button>
 			</div>
             
             </div>

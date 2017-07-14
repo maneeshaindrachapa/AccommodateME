@@ -1,5 +1,5 @@
 <?php
-require 'phpmail.php';
+//require 'phpmail.php';
 
 ////////////////////////////////////////////
 session_start();
@@ -25,9 +25,6 @@ if(isset($_POST['submit_signup'])) {
     $firstName = $_POST['firstName'];
     $lastName = $_POST['lastName'];
     $email =$_SESSION['email']= $_POST['email'];
-    
-    
-    
     $password = $_POST['password'];
     $re_password = $_POST['re_password'];
     $telephone=$_POST['telNo'];
@@ -68,32 +65,64 @@ if(isset($_POST['submit_signup'])) {
         //Returning to index.php using $_SERVER['PHP_SELF']
     }
     else{
-        if(isset($_POST['firstName']) && isset($_POST['lastName']) && isset($_POST['email']) && isset($_POST['password'])&& isset($_POST['telNo'])&& isset($_POST['re_password']) && (($searcher_status=='checked')||($owner_status=='checked')) ){   
+        if(isset($_POST['firstName']) && isset($_POST['lastName']) && isset($_POST['email']) && isset($_POST['password'])&& isset($_POST['telNo'])&& isset($_POST['re_password']) && (($searcher_status=='checked')||($owner_status=='checked')) ){
+
             $query="SELECT * FROM users WHERE email='$email'";
-            
             if($query_run=mysqli_query($db, $query)){
                 if(is_null(mysqli_fetch_assoc($query_run))){
-                    
-                        $query_add="INSERT INTO users VALUES(NULL, '$firstName', '$lastName', '$email', '$password', '$telephone','$type', '$date',NULL)";
+                        $query_add="INSERT INTO users VALUES(NULL, '$firstName', '$lastName', '$email', '$password', '$telephone','$type', '$date',NULL,'default.jpg')";
                         if(mysqli_query($db, $query_add)){
                             $firstName='';
                             $lastName='';
                             $password='';
                             $re_password='';
                             $telephone='';
+                            
+                            ///////////////////////////////////////////
+                            $p_name=$_FILES['profilepicture']['name'];
+                            $p_size=$_FILES['profilepicture']['size'];
+                            $p_type=$_FILES['profilepicture']['type'];
+                            $p_temp_name=$_FILES['profilepicture']['tmp_name'];
+                            $p_extention=strtolower(substr($p_name,strpos($p_name,'.')+1));
+                            $p_max_size=5242880;
+                            
+                            if(isset($p_name)){
+                                if(!empty($p_name)){
+                                    if(($p_extention=='jpg' || $p_extention=='jpeg')&&($p_type=='image/jpeg')&&($p_size<=$p_max_size)){
+                                        $location = 'profPic';
+                                        if(is_dir($location)==false){
+                                            mkdir("$location", 0700);// Create directory if it does not exist
+                                                    }
+                                        $sql3 = "SELECT userID FROM users WHERE email='$email' ";
+                                        $result3 = $db->query($sql3);
+                                        $row3 = mysqli_fetch_assoc($result3);
+                                        $p_id=$row3['userID'];
+                                        $new_p_name=$p_id.'.'.$p_extention;
+                                        
+                                        if (move_uploaded_file($p_temp_name, "$location/" .$new_p_name)) {
+                                            $sql = "UPDATE users SET profPic='$new_p_name' WHERE email='$email'";
+                                            mysqli_query($db,$sql);   
+                                        }
+                                    }    
+                                }
+                            }
+                            //////////////////////////////////////////
+                            
+                            
+                            
+                            if($searcher_status=='checked'){
+                                header("location:process.php");
+                           }elseif($owner_status=='checked'){
+                                header("location:process_1.php");
+                            }
                         }else{
-                        }
+                            }
                     }else{
                     $accountAlreadyThere='*Account Already on This E-mail!';
-                }
+                        }
             }
-            //if all details in sign-up is correct load in to process.php
-            if($searcher_status=='checked'){
-                header("location:process.php");
-            }elseif($owner_status=='checked'){
-                header("location:process_1.php");
-            }
-        }else{
+        }
+        else{
             $fillAllData='*Fill All Data to Make the Account!';
         }
     
@@ -111,9 +140,7 @@ if(isset($_POST['submit_signup'])) {
 /* Signin page
     ===========================================*/
 if(isset($_POST['submit_signin'])){
-    /////////////////////////
-    $_SESSION['email']="";
-    /////////////////////////
+
     
     $email_input =$_SESSION['email']= $_POST['email_signin'];
     $password_input=$_POST['password_signin'];
@@ -127,8 +154,10 @@ if(isset($_POST['submit_signin'])){
                         $type_db=$row['type'];
                         if($type_db=='owner'){
                              header("location:process_1.php");
+                        }elseif($type_db=='admin'){
+                            header("location:process_admin.php");
                         }
-                        else{//if all details in sign-in is correct then load in to process.php
+                        else{
                             header("location:process.php");
                         }
                     }else{

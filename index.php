@@ -2,7 +2,7 @@
 //////////////////////////////////////////////////////////////////////////////////////
 require 'database/connect.inc.php';
 include 'php/form_checking.php';
-///////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////
 ?>
 
 <!DOCTYPE html>
@@ -242,7 +242,7 @@ include 'php/form_checking.php';
                 <div class="clearfix"></div>
               </div>
               
-              <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>"enctype="multipart/form-data">
+              <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>" enctype="multipart/form-data">
                 <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
@@ -359,6 +359,5 @@ include 'php/form_checking.php';
     ================================================== -->
     <script type="text/javascript" src="js/main.js"></script>
     <script src="js/animatedParticals.js"></script>
-    
   </body>
 </html>

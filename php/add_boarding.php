@@ -12,7 +12,10 @@ $email=$_SESSION['email'];
 $error_1=$error_2=$error_3='';
 
 //other errors
-$fill_all=$error_password=$error_email='';
+$fill_all=$error_password='';
+
+//raising error for alert box
+$error_alert="error";
 ///////////////////////////////////////////////
 
 
@@ -113,10 +116,9 @@ if(isset($_POST['submit'])){
                 }
             }
         }else{
-            echo "<script type='text/javascript'>alert('ass')</script>";
             $error_email= '*Your email does not exist!';
-        }      
-//    }
+        }   
+    $error_alert="";
     }else{
         $fill_all= '*fill all the data.';
     }

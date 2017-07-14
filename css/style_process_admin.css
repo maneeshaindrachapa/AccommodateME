@@ -1,0 +1,186 @@
+@import "compass/css3";
+
+@import "compass/css3";
+
+* { 
+  -moz-box-sizing: border-box; 
+  -webkit-box-sizing: border-box; 
+	box-sizing: border-box; 
+}
+
+body {
+  background-image:url(../img/slider/02.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  font-family: 'Raleway',sans-serif;
+  background-attachment: fixed;
+  height: 100%;
+}
+
+h2{
+    color: white;
+    font-family: 'Raleway',sans-serif;
+    text-align: center;
+    margin-top: 20px;
+    text-transform: uppercase;
+}
+h1{
+    color: white;
+    font-family: 'Raleway',sans-serif;
+    text-align: center;
+    font-size: 70px;
+    border: solid;
+    margin: 70px;
+    text-transform: uppercase;
+    text-shadow:  -1px -1px 0 #000,1px -1px 0 #000,-1px 1px 0 #000,1px 1px 0 #000;
+}
+
+/*log out button*/
+.btn.btn-info{
+    background: #FCAC45;
+	border: 0;
+	border-radius:0%;
+	padding: 10px 40px;
+	color: #ffffff;
+	text-transform: uppercase;
+}
+button.btn.btn-info:hover{
+    color: black;
+}
+.btn:active, .btn.active {
+	background-image: none;
+	outline: 0;
+	-webkit-box-shadow: none;
+	box-shadow: none;
+}
+
+.btn:focus, 
+.btn:active:focus, 
+.btn.active:focus, 
+.btn.focus, 
+.btn:active.focus, 
+.btn.active.focus {
+	outline: thin dotted;
+	outline: none;
+	outline-offset: none;
+}
+/*****************************************/
+table {
+  border-collapse: separate;
+  background:#fff;
+  @include border-radius(5px);
+  margin:20px auto;
+  @include box-shadow(0px 0px 5px rgba(0,0,0,0.3));
+}
+
+thead {
+  @include border-radius(5px);
+}
+
+thead th {
+  font-family: 'Raleway',sans-serif;
+  font-size:18px;
+  font-weight:400;
+  color:#000;
+  @include text-shadow(1px 1px 0px rgba(0,0,0,0.5));
+  text-align:left;
+  padding:20px;
+  @include background-image(linear-gradient(#646f7f, #4a5564));
+  border-top:1px solid #858d99;
+  
+  &:first-child {
+   @include border-top-left-radius(5px); 
+  }
+
+  &:last-child {
+    @include border-top-right-radius(5px); 
+  }
+}
+
+tbody tr td {
+  font-family: 'Raleway',sans-serif;
+  font-weight:400;
+  color:#5f6062;
+  font-size:13px;
+  padding:20px 20px 20px 20px;
+  border-bottom:1px solid #e0e0e0;
+  
+}
+
+tbody tr:nth-child(2n) {
+  background:#f0f3f5;
+}
+
+tbody tr:last-child td {
+  border-bottom:none;
+  &:first-child {
+    @include border-bottom-left-radius(5px);
+  }
+  &:last-child {
+    @include border-bottom-right-radius(5px);
+  }
+}
+
+tbody:hover > tr td {
+  @include opacity(0.5);
+  
+  /* uncomment for blur effect */
+   color:transparent;
+  @include text-shadow(0px 0px 2px rgba(0,0,0,0.8));
+}
+
+tbody:hover > tr:hover td {
+  @include text-shadow(none);
+  color:#2d2d2d;
+  @include opacity(1.0);
+}
+
+.form-control:focus {
+    border-color: #1b5a7c;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(24, 204, 162, 0.6);
+    outline: 0 none;
+}
+.form-control {
+    width: 250px;
+    background: none;
+    height: 40px;
+    color: #ddd;
+     background: none;
+    height: 44px;
+    color: #ddd;
+}
+
+/*email*/
+.admin-email-form {
+    margin:10px ;
+    max-width: 400px;
+    padding: 20px 12px 10px 20px;
+    font-size: 13px ;
+    font-family:'Raleway',sans-serif;
+}
+
+.admin-email-form input[type=email]{
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    border:1px solid #BEBEBE;
+    padding: 7px;
+    margin-bottom:5px;
+    -webkit-transition: all 0.30s ease-in-out;
+    -moz-transition: all 0.30s ease-in-out;
+    -ms-transition: all 0.30s ease-in-out;
+    -o-transition: all 0.30s ease-in-out;
+    outline: none;  
+}
+
+.admin-email-form input[type=email]:focus,{
+    -moz-box-shadow: 0 0 8px #88D5E9;
+    -webkit-box-shadow: 0 0 8px #88D5E9;
+    box-shadow: 0 0 8px #88D5E9;
+    border: 1px solid #88D5E9;
+}
+
+.admin-email-form .field-long{
+    width: 100%;
+}
+     

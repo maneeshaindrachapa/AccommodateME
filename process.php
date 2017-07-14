@@ -1,8 +1,14 @@
 <?php
 ////////////////////////////////////////////////////
-//if(!isset($_POST['submit_signup']) || !isset($_POST['sumbit_signin'])){
-//    header('location:index.php');
-//}
+require 'database/connect.inc.php';
+
+session_start();
+$emailprof=$_SESSION['email'];
+
+$sql4 = "SELECT profPic FROM users WHERE email='$emailprof' ";
+$result4 = $db->query($sql4);
+$row4 = mysqli_fetch_assoc($result4);
+$profile=$row4['profPic'];
 ////////////////////////////////////////////////////
 ?>
 
@@ -71,7 +77,7 @@
                     }
 
                     .sideA{
-                        background-image: url("img/team/02.jpg");
+                        background-image: url("profPic/<?php echo $profile;?>");
                         background-size:cover;
                     }
 
