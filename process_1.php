@@ -122,7 +122,16 @@ $profile=$row4['profPic'];
                 </style>
             	<h4>Search For a Boarding Place</h4><br>
 				<form class="form-inline" role="form">
-				
+				<div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      For:
+                          <select class="form-control" name="for">
+                              <option value="Boys" name="forBoys">Boys</option>
+                              <option value="Girls" name="forGirls">Girls</option>
+                        </select>
+                  </div> 
+                    </div></div>
                       
                 <div class="row">
                   <div class="col-md-12">
@@ -135,7 +144,7 @@ $profile=$row4['profPic'];
                 <div class="row">
                     <div class="col-md-12">
                     <div class="form-group">
-                      <label for="priceForBoarding">Price: </label>
+                      <label for="priceForBoarding">Monthly Fee: </label>
                         <input type="number" min="1000" step="500" class="form-control" id="priceForBoarbing" placeholder="Price for Boarding place" name="" value="1000">
                       </div>
                     </div></div>

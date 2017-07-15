@@ -7,7 +7,7 @@ $name="SELECT firstName FROM users where email='$email'";
 $name_result=$db->query($name);
 $name_result_row=mysqli_fetch_assoc($name_result);
 
-$sql="SELECT userID,firstName,lastName,email,password,telephone,type,creditCardNo FROM users";
+$sql="SELECT userID,firstName,lastName,email,password,telephone,type,creditCardNo,activeAccount FROM users";
 $sql_1="SELECT boardingID,userID,studentCount,price,distance,address FROM boarding_details";
 $result_1=$db->query($sql_1);
 $result=$db->query($sql);
@@ -46,6 +46,7 @@ $result=$db->query($sql);
                 <th>telephone</th>
                 <th>type</th>
                 <th>Credit Card No</th>
+                <th>Active Account</th>
             </tr>
             </thead>
             <tbody>
@@ -54,7 +55,7 @@ $result=$db->query($sql);
         if ($result->num_rows > 0) {
         // output data of each row
             while($row = $result->fetch_assoc()) {
-                echo  "<tr><td>".$row['userID']."</td><td>".$row['firstName']."</td><td>".$row['lastName']."</td><td>".$row['email']."</td><td>".$row['password']."</td><td>".$row['telephone']."</td><td>".$row['type']."</td><td>".$row['creditCardNo']."</td></tr>";
+                echo  "<tr><td>".$row['userID']."</td><td>".$row['firstName']."</td><td>".$row['lastName']."</td><td>".$row['email']."</td><td>".$row['password']."</td><td>".$row['telephone']."</td><td>".$row['type']."</td><td>".$row['creditCardNo']."</td><td>".$row['activeAccount']."</td></tr>";
                 }
             }else {
                 echo "0 results";
@@ -75,9 +76,10 @@ $result=$db->query($sql);
         <?php
         ////////////////////////////////////////////////////
         $error_remove_email="";
+        $active="false";
         if(isset($_POST['removeEmailButton']) && isset($_POST['remove_email'])){
             $remove_email=$_POST['remove_email'];
-            $sql_3= "DELETE FROM users WHERE email='$remove_email'";
+            $sql_3= "UPDATE users SET activeAccount='$active' WHERE email='$remove_email'";
             if($query_run=mysqli_query($db,$sql_3)){
                 header("location:process_admin.php");
             }else{

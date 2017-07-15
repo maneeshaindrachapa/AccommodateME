@@ -115,7 +115,18 @@ $profile=$row4['profPic'];
                 
             	<h4>Search For a Boarding Place</h4><br><br>
 				<form class="form-inline" role="form">
-				
+				<div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      For:
+                      
+                          <select class="form-control" name="for">
+                              <option value="Boys" name="forBoys">Boys</option>
+                              <option value="Girls" name="forGirls">Girls</option>
+                        </select>
+                      
+                  </div> 
+                    </div></div>
                       
                 <div class="row">
                   <div class="col-md-12">

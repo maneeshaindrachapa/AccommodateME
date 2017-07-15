@@ -14,7 +14,7 @@ $error_message_EM=$error_message_FN=$error_message_LN=$error_message_PW=$error_m
 $fillAllData=$accountAlreadyThere="";
 
 //adding variables for html to show error messages signin
-$passwordErr= $noAccount="";
+$passwordErr= $noAccount=$banned="";
 ////////////////////////////////////////////
 
 
@@ -31,6 +31,7 @@ if(isset($_POST['submit_signup'])) {
     $searcher_status=isset($_POST['boarding-searcher'])?"checked":"unchecked";
     $owner_status=isset($_POST['boarding-owner'])?"checked":"unchecked";
     $date = date('y-m-d');
+    $active="true";
     $type='searcher';
     if($searcher_status=='unchecked'){
         $type='owner';
@@ -70,7 +71,7 @@ if(isset($_POST['submit_signup'])) {
             $query="SELECT * FROM users WHERE email='$email'";
             if($query_run=mysqli_query($db, $query)){
                 if(is_null(mysqli_fetch_assoc($query_run))){
-                        $query_add="INSERT INTO users VALUES(NULL, '$firstName', '$lastName', '$email', '$password', '$telephone','$type', '$date',NULL,'default.jpg')";
+                        $query_add="INSERT INTO users VALUES(NULL, '$firstName', '$lastName', '$email', '$password', '$telephone','$type', '$date','default.jpg','$active')";
                         if(mysqli_query($db, $query_add)){
                             $firstName='';
                             $lastName='';
@@ -150,6 +151,8 @@ if(isset($_POST['submit_signin'])){
             if($query_run=mysqli_query($db, $query)) {
                 while ($row = mysqli_fetch_assoc($query_run)) {
                     $password_db=$row['password'];
+                    $active=$row['activeAccount'];
+                    if($active=="true"){
                     if($password_input==$password_db){
                         $type_db=$row['type'];
                         if($type_db=='owner'){
@@ -162,6 +165,9 @@ if(isset($_POST['submit_signin'])){
                         }
                     }else{
                         $passwordErr= 'Invalid Password.';
+                    }
+                    }else{
+                        $banned="*Your Account is banned";
                     }
                 }
             }

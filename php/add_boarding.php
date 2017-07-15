@@ -27,6 +27,16 @@ if(isset($_POST['submit'])){
     $price=$_POST['price'];
     $distance=$_POST['distance'];
     $address=$_POST['address'];
+    ///
+//    $boys=isset($_POST['forBoys'])?"checked":"unchecked";
+//    $girls=isset($_POST['forGirls'])?"checked":"unchecked";
+//    $for="boys";
+//    if($boys==='unchecked'){
+//        $for='girls';
+//    }
+    $for=$_POST['for'];
+    ///
+    
     
     $photo_array=array('photo_1','photo_2','photo_3','photo_4','photo_5');
     $allPhotosFilled=1;
@@ -49,7 +59,7 @@ if(isset($_POST['submit'])){
                     /*adding boarding data to database
                     ==================================*/
                     if($password==$password_db){
-                        $query_add = "INSERT INTO boarding_details VALUES(NULL, '$userID', '$studentCount', '$price', '$distance','$address')";
+                        $query_add = "INSERT INTO boarding_details VALUES(NULL, '$userID', '$studentCount', '$price', '$distance','$address','$for')";
                         if (mysqli_query($db, $query_add)) {
                             $price = '500';
                             $studentCount = '1';
@@ -90,7 +100,7 @@ if(isset($_POST['submit'])){
                                                     } 
                                                     $new_file_name='u'.$userID.'b'.$last_boarding_id.'img0'.$num.'.'.$file_extention;
                                                         if (move_uploaded_file($file_tmp_name, "$location/" . $new_file_name)) {
-                                                            echo 'uploaded';
+                                                            //echo 'uploaded';
                                                         } else {
                                                             $error_1= '*There was an error uploading the file '.$file_name.' ';
                                                         }
@@ -121,6 +131,7 @@ if(isset($_POST['submit'])){
     $error_alert="";
     }else{
         $fill_all= '*fill all the data.';
+    
     }
 }else{
     $password='';

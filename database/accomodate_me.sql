@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 14, 2017 at 01:18 PM
+-- Generation Time: Jul 15, 2017 at 10:28 AM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -32,23 +32,18 @@ CREATE TABLE `boarding_details` (
   `studentCount` int(11) NOT NULL,
   `price` decimal(10,0) NOT NULL,
   `distance` int(11) NOT NULL,
-  `address` varchar(80) NOT NULL
+  `address` varchar(80) NOT NULL,
+  `boardingFor` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `boarding_details`
 --
 
-INSERT INTO `boarding_details` (`boardingID`, `userID`, `studentCount`, `price`, `distance`, `address`) VALUES
-(26, 51, 80, '80000', 200, 'asdasdsd'),
-(27, 51, 1, '500', 100, 'adfff'),
-(28, 51, 1, '80000', 500, 'dgfgfgf'),
-(29, 51, 1, '80000', 500, 'dgfgfgf'),
-(30, 51, 1, '80000', 500, 'dgfgfgf'),
-(31, 51, 1, '80000', 500, 'dgfgfgf'),
-(32, 51, 1, '80000', 500, 'dgfgfgf'),
-(33, 51, 20, '8500', 5600, 'dffdbfb'),
-(34, 51, 50, '25000', 500, 'cdsdfsdfd');
+INSERT INTO `boarding_details` (`boardingID`, `userID`, `studentCount`, `price`, `distance`, `address`, `boardingFor`) VALUES
+(37, 63, 1, '500', 100, 'xxcvcv', 'Boys'),
+(38, 63, 1, '500', 100, 'sdvsdv', 'Girls'),
+(39, 63, 5, '52200', 2000, 'scafdvsdfv', 'Girls');
 
 -- --------------------------------------------------------
 
@@ -65,21 +60,22 @@ CREATE TABLE `users` (
   `telephone` int(10) NOT NULL,
   `type` varchar(10) NOT NULL,
   `date` varchar(30) NOT NULL,
-  `creditCardNo` int(20) DEFAULT NULL,
-  `profPic` varchar(100) DEFAULT NULL
+  `creditCardNo` varchar(20) DEFAULT NULL,
+  `profPic` varchar(100) DEFAULT NULL,
+  `activeAccount` varchar(6) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`userID`, `firstName`, `lastName`, `email`, `password`, `telephone`, `type`, `date`, `creditCardNo`, `profPic`) VALUES
-(15, 'Yasiruasdfff', 'Samarasekara', 'yasiru@gmail.com', '123', 0, 'admin', '17-07-01', 0, NULL),
-(43, 'maneesha', 'indrachapa', 'maneesh.15@cse.mrt.ac.lk', '123123123', 774301326, 'searcher', '17-07-09', NULL, '43.jpg'),
-(50, 'maneesha', 'indrachapa', 'maneeshaindrachapa@gmail.com', '123123123', 774301326, 'admin', '17-07-09', 2147483647, NULL),
-(63, 'm', 'mmmm', 'aaacf@gmail.com', '123123123', 774301326, 'owner', '17-07-14', NULL, NULL),
-(72, 'maneesha', 'indrachapa', 'indrachapa@gmail.com', '123123123', 774301326, 'searcher', '17-07-14', NULL, '72.jpg'),
-(75, 'dsfsff', 'mmmm', 'mmkl@lk.lo', '123123123', 774301326, 'searcher', '17-07-14', 0, '75.jpg');
+INSERT INTO `users` (`userID`, `firstName`, `lastName`, `email`, `password`, `telephone`, `type`, `date`, `creditCardNo`, `profPic`, `activeAccount`) VALUES
+(15, 'Yasiruasdfff', 'Samarasekara', 'yasiru@gmail.com', '123', 0, 'admin', '17-07-01', '0', NULL, 'true'),
+(43, 'maneesha', 'indrachapa', 'maneesh.15@cse.mrt.ac.lk', '123123123', 774301326, 'admin', '17-07-09', NULL, '43.jpg', 'true'),
+(50, 'maneesha', 'indrachapa', 'maneeshaindrachapa@gmail.com', '123123123', 774301326, 'admin', '17-07-09', '2147483647', NULL, 'true'),
+(63, 'm', 'mmmm', 'aaacf@gmail.com', '123456123', 774301326, 'owner', '17-07-14', '11111111111111111', '63.jpg', 'true'),
+(72, 'maneesha', 'indrachapa', 'indrachapa@gmail.com', '123123123', 774301326, 'searcher', '17-07-14', NULL, '72.jpg', 'false'),
+(75, 'dsfsff', 'mmmm', 'mmkl@lk.lo', '123123123', 774301326, 'searcher', '17-07-14', '0', '75.jpg', 'false');
 
 --
 -- Indexes for dumped tables
@@ -105,7 +101,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `boarding_details`
 --
 ALTER TABLE `boarding_details`
-  MODIFY `boardingID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `boardingID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 --
 -- AUTO_INCREMENT for table `users`
 --

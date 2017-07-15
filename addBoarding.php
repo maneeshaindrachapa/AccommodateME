@@ -67,6 +67,16 @@ include 'php/add_boarding.php';
                       </div>
                   </div>
                 <div class="form-group">
+                      For:
+                      <div class="input-group">
+                          <select class="form-control" name="for">
+                              <option value="Boys" name="forBoys">Boys</option>
+                              <option value="Girls" name="forGirls">Girls</option>
+                        </select>
+                      </div>
+                  </div>    
+                    
+                <div class="form-group">
                       Address of The Boarding Place:
                       <div class="input-group">
                           <input type="text" class="form-control" placeholder="Address of the boarding place" value="<?php print $address; ?>" name="address">
