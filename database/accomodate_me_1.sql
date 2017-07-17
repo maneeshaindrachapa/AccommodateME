@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 16, 2017 at 02:35 PM
+-- Generation Time: Jul 17, 2017 at 07:48 PM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -19,6 +19,30 @@ SET time_zone = "+00:00";
 --
 -- Database: `accomodate_me_1`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `bet_details`
+--
+
+CREATE TABLE `bet_details` (
+  `boardingID` int(11) NOT NULL,
+  `ownerID` int(11) NOT NULL,
+  `studentID` int(11) NOT NULL,
+  `betAmount` int(11) NOT NULL,
+  `isBooked` varchar(5) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `bet_details`
+--
+
+INSERT INTO `bet_details` (`boardingID`, `ownerID`, `studentID`, `betAmount`, `isBooked`) VALUES
+(9, 30, 30, 2500000, 'false'),
+(8, 30, 30, 28000, 'false'),
+(4, 30, 30, 25000, 'false'),
+(9, 30, 63, 2502000, 'false');
 
 -- --------------------------------------------------------
 
@@ -42,7 +66,15 @@ CREATE TABLE `boarding_details` (
 
 INSERT INTO `boarding_details` (`boardingID`, `userID`, `boardingFor`, `studentCount`, `price`, `distance`, `address`) VALUES
 (1, 28, 'Boys', 20, 25000, 200, 'dvfdvfvf'),
-(2, 28, 'Girls', 25, 250000, 2000, 'vvffbf');
+(2, 28, 'Girls', 25, 250000, 2000, 'vvffbf'),
+(3, 29, 'Girls', 1, 500, 300, 'scscs'),
+(4, 30, 'Girls', 10, 25000, 200, 'cdcssdcd'),
+(5, 30, 'Girls', 10, 25000, 200, 'cdcssdcd'),
+(6, 30, 'Girls', 10, 25000, 200, 'cdcssdcd'),
+(7, 30, 'Girls', 10, 25000, 200, 'cdcssdcd'),
+(8, 30, 'Girls', 10, 25000, 200, 'cdcssdcd'),
+(9, 30, 'Girls', 10, 25000, 200, 'cdcssdcd'),
+(10, 30, 'Girls', 2, 25000, 200, 'fdbfdfb');
 
 -- --------------------------------------------------------
 
@@ -59,25 +91,34 @@ CREATE TABLE `users` (
   `telephone` int(11) NOT NULL,
   `type` varchar(10) NOT NULL,
   `profPic` varchar(50) NOT NULL,
-  `active` varchar(10) NOT NULL
+  `active` varchar(10) NOT NULL,
+  `confirmationCode` int(10) NOT NULL,
+  `confirmationCodeCheck` int(10) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`userID`, `firstName`, `lastName`, `email`, `password`, `telephone`, `type`, `profPic`, `active`) VALUES
-(5, 'a', 'a', 'aaaaaaaaaaaa@gmail.com', '123123123', 774301326, 'searcher', '', 'true'),
-(6, 'a', 'a', 'aaaaaaaaa@gmail.com', '123123123', 774301326, 'searcher', 'profPic/default.jpg', 'true'),
-(17, 'a', 'a', 'jkjkaaa@gmail.com', '123123123', 774301326, 'searcher', 'default.jpg', 'true'),
-(18, 'a', 'a', 'jkjka@gmail.com', '123123123', 774301326, 'searcher', 'default.jpg', 'true'),
-(19, 'a', 'a', 'dvdv@lk.lk', '123123123', 774301326, 'searcher', 'default.jpg', 'true'),
-(20, 'a', 'a', 'dvdffv@lk.lk', '123123123', 774301326, 'searcher', '20.jpg', 'true'),
-(21, 'a', 'a', 'hnnhnvdffv@lk.lk', '123123123', 774301326, 'owner', '21.jpg', 'true'),
-(22, 'd', 'k', 'manee@lk.lk', 'asdasdasd', 774301328, 'searcher', '22.jpg', 'true'),
-(23, 'avdfvvf', 'avdfvdfv', 'manxsasxee@lk.lk', '123123123', 774301326, 'searcher', '23.jpg', 'true'),
-(24, 'n', 'nnnnn', 'nnnnnn@nn.nn', '123123123', 774301326, 'searcher', '24.jpg', 'false'),
-(27, 'maneesha', 'indrachapa', 'maneeshaindrachapa@gmail.com', '123123123', 774301326, 'admin', '27.jpg', 'true');
+INSERT INTO `users` (`userID`, `firstName`, `lastName`, `email`, `password`, `telephone`, `type`, `profPic`, `active`, `confirmationCode`, `confirmationCodeCheck`) VALUES
+(18, 'a', 'a', 'jkjka@gmail.com', '123123123', 774301326, 'searcher', '18.jpg', 'true', 0, NULL),
+(19, 'a', 'a', 'dvdv@lk.lk', '123123123', 774301326, 'searcher', 'default.jpg', 'true', 0, NULL),
+(20, 'a', 'a', 'dvdffv@lk.lk', '123123123', 774301326, 'searcher', '20.jpg', 'true', 0, 0),
+(21, 'a', 'a', 'hnnhnvdffv@lk.lk', '123123123', 774301326, 'owner', '21.jpg', 'true', 0, NULL),
+(24, 'n', 'nnnnn', 'nnnnnn@nn.nn', '123123123', 774301326, 'searcher', '24.jpg', 'false', 0, NULL),
+(27, 'maneesha', 'indrachapa', 'maneeshaindrachapa@gmail.com', '123123123', 774301326, 'admin', '27.jpg', 'true', 0, 0),
+(30, 'kavindu', 'Kc', 'kc@kc.kc', '123123123', 774301326, 'owner', '30.jpg', 'true', 0, NULL),
+(35, 'a', 'a', 'aaaa@aaa.lk', '123123123', 774301326, 'searcher', '35.jpg', 'true', 0, NULL),
+(36, 'a', 'a', 'aaaa@llaaa.lk', '123123123', 774301326, 'searcher', '36.jpg', 'true', 0, NULL),
+(37, 'avdfvvf', 'a', 'aaaaaaaaaacscacasaaaaa@gmail.com', '123123123', 774301326, 'searcher', '37.jpg', 'true', 0, NULL),
+(39, 'avdfvvf', 'a', 'cscacasaaa@gmail.com', '123123123', 774301326, 'searcher', 'default.jpg', 'true', 0, NULL),
+(41, 'abc', 'abc', 'abc@gmail.com', '123123123', 774301326, 'searcher', 'default.jpg', 'true', 0, NULL),
+(63, ' zx', ' x ', 'xxxcxcxc@lk.lk', '123123123', 774301326, 'searcher', '63.jpg', 'true', 123123123, 123123123),
+(64, ' zx', ' x ', 'xfffxxcxcxc@lk.lk', '123123123', 774301326, 'searcher', 'default.jpg', 'true', 123123123, 123123123),
+(65, 'a', 'a', 'sxssxxsxs@gmi.lk', '123123123', 774301326, 'searcher', '65.jpg', 'true', 1059630177, 1059630177),
+(66, 'maneesha', 'klj', 'dddd@hhgg.lk', '123123123', 774301326, 'searcher', 'default.jpg', 'true', 1092504989, 1092504989),
+(67, 'mmm', 'mmmm', 'mmmm@mko.lk', '123123123', 774301326, 'owner', 'default.jpg', 'true', 1148543591, 1148543591),
+(68, 'bb', 'bfbb', 'bbfbfbfbf@as.lk', '123123123', 774301326, 'searcher', 'default.jpg', 'true', 1323779977, NULL);
 
 --
 -- Indexes for dumped tables
@@ -103,12 +144,12 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `boarding_details`
 --
 ALTER TABLE `boarding_details`
-  MODIFY `boardingID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `boardingID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=69;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

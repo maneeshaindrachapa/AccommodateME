@@ -2,46 +2,56 @@
 //////////////////////////////////
 include_once("Crud.php");
 //////////////////////////////////
-session_start();
-
 $crud=new Crud();
 
-/*setting the profile picture
-==============================*/
-$email=$_SESSION['email'];
+session_start();
 
-$query="SELECT * FROM users WHERE email='$email'";
-if($query_run=mysqli_query($db, $query)){
-    while ($row = mysqli_fetch_assoc($query_run)) {
-        $userID=$row['userID'];
-        $firstName=$row['firstName'];
-        $imageID='u'.$userID.'.jpg';
-        $location='profPic/'.$imageID;
-    }
-}
+/////////////////////////////variables 
+$noBoarding=false;
+////////////////////////////
+
+
 /*search boarding part
 ======================*/
 if(isset($_POST['search_boarding'])){
     $studentCount=(int)$_POST['studentCount'];
     $price=(int)$_POST['price'];
     $distance=(int)$_POST['distance'];
+    $for=$_POST['for'];
     $boardingArray=array();
 
-    $query_count="SELECT * FROM `boarding_details` WHERE studentCount='$studentCount'";
-    if(!is_null(mysqli_query($db, $query_count))) {
-        if ($query = mysqli_query($db, $query_count)) {
-            while ($row = mysqli_fetch_assoc($query)) {
-                $boardingID = $row['boardingID'];
-                $boardingPrice=(int)$row['price'];
-                $boardingDistance=(int)$row['distance'];
+    $query_count=$crud->getData("SELECT * FROM `boarding_details` WHERE studentCount='$studentCount'AND boardingFor='$for'");
+    print_r($query_count);
+    if(sizeof($query_count)>0) {
+            for($x=0;$x<sizeof($query_count);$x++){
+                $boardingID = $query_count[$x]['boardingID'];
+                $boardingPrice=(int)$query_count[$x]['price'];
+                $boardingDistance=(int)$query_count[$x]['distance'];
 
-                if(($price-500<=$boardingPrice)&&($boardingPrice<=$price+500)){
+                if(($price==0)&&($distance==0)){
+                    array_push($boardingArray,$boardingID);
+                }
+
+                if(($price!=0)&&($distance==0)){
+                    if(($price-500<=$boardingPrice)&&($boardingPrice<=$price+500)) {
+                        array_push($boardingArray, $boardingID);
+                    }
+                }
+
+                if(($price==0)&&($distance!=0)){
                     if(($distance-100<=$boardingDistance)&&($boardingDistance<=$distance+100)){
                         array_push($boardingArray,$boardingID);
                     }
                 }
+
+                if(($price!=0)&&($distance!=0)) {
+                    if (($price - 500 <= $boardingPrice) && ($boardingPrice <= $price + 500)) {
+                        if (($distance - 100 <= $boardingDistance) && ($boardingDistance <= $distance + 100)) {
+                            array_push($boardingArray, $boardingID);
+                        }
+                    }
+                }
             }
-        }
     }
     if(!empty($boardingArray)){
         //print_r($boardingArray);
@@ -49,7 +59,7 @@ if(isset($_POST['search_boarding'])){
         //print_r($_SESSION);
         header("location:searchResult.php");
     }else{
-        echo 'no results found!';
+        $noBoarding=true;
     }
 }
 ?>

@@ -1,10 +1,10 @@
 <?php
 //////////////////////////////////
 include_once("php/Crud.php");
+include_once('php/process_checking.php');
 //////////////////////////////////
 $crud=new Crud();
 
-session_start();
 $emailprof=$_SESSION['email'];
 
 $profile_pic_db=$crud->getData("SELECT profPic FROM users WHERE email='$emailprof'");
@@ -28,7 +28,11 @@ $profile=$profile_pic_db[0]['profPic'];
 
     <!-- Custom styles for this template -->
     <link href="css/style_process.css" rel="stylesheet" type="text/css">
-      
+    
+    <!--Alerts-->
+    <script src="alert/sweetalert.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="alert/sweetalert.css">
+
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
   </head>
     
@@ -52,7 +56,12 @@ $profile=$profile_pic_db[0]['profPic'];
                 
             </header>
             <div class="col-md-8 col-md-offset-2">
-            
+                <style>
+                    .col-md-8,.col-md-offset-2{
+                        background-color: rgba(74, 74, 74, 0.66);
+                        padding: 10px;
+                    }
+                </style>
             <!--profile pic-->    
                 <div class="wrap">
                     <div class="sideA"></div>
@@ -114,13 +123,13 @@ $profile=$profile_pic_db[0]['profPic'];
             <!--------------->
                 
             	<h4>Search For a Boarding Place</h4><br><br>
-				<form class="form-inline" role="form">
+				<form class="form-inline" role="form" method="post" action="">
 				<div class="row">
                   <div class="col-md-12">
                     <div class="form-group">
-                      For:
+                        <label for="for">For:</label>
                       
-                          <select class="form-control" name="for">
+                          <select class="form-control" name="for" id='for'>
                               <option value="Boys" name="forBoys">Boys</option>
                               <option value="Girls" name="forGirls">Girls</option>
                         </select>
@@ -132,7 +141,7 @@ $profile=$profile_pic_db[0]['profPic'];
                   <div class="col-md-12">
                     <div class="form-group">
                       <label for="noOfPeople">No of People :</label>
-                        <input type="number" min="1"  class="form-control" id="noOfPeople" placeholder="Enter Number of People" name="" value="1">
+                        <input type="number" min="1"  class="form-control" id="noOfPeople" placeholder="Enter Number of People" name="studentCount" value="1">
                       </div>
                     </div></div>
                     
@@ -140,7 +149,7 @@ $profile=$profile_pic_db[0]['profPic'];
                     <div class="col-md-12">
                     <div class="form-group">
                       <label for="priceForBoarding">Price: </label>
-                        <input type="number" min="1000" step="500" class="form-control" id="priceForBoarbing" placeholder="Price for Boarding place" name="" value="1000">
+                        <input type="number" min="1000" step="500" class="form-control" id="priceForBoarbing" placeholder="optional" name="price" value="">
                       </div>
                     </div></div>
                     
@@ -148,11 +157,18 @@ $profile=$profile_pic_db[0]['profPic'];
                   <div class="col-md-12">
                     <div class="form-group">
                       <label for="distanceForBoarding">Distance for Boarding:</label>
-                        <input type="number" min="100" step="100" class="form-control" id="distanceForBoarding" placeholder="Distance from Boarding" name="" value="100">
+                        <input type="number" min="100" step="100" class="form-control" id="distanceForBoarding" placeholder="Optional" name="distance" value="">
                       </div>
                     </div></div>
                     <br> 
-				  <button type="button" class="btn btn-info">Search</button>
+				  <button type="submit" class="btn btn-info" name="search_boarding">Search</button>
+                    <?php 
+                    //////////////////////////////////////////
+                    if($noBoarding){
+                        echo '<script>swal("Sorry", "There is no boarding matching your requirements.", "error")</script>';    
+                    }
+                    //////////////////////////////////////////
+                    ?>
 				</form>            
 			</div>
             </div>

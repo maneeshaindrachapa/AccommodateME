@@ -1,7 +1,9 @@
 <?php
 //////////////////////////////////////////////////////////////////
 include_once("php/Crud.php");
-include 'php/form_checking.php';
+include ('php/form_checking.php');
+
+$crud=new Crud();
 //////////////////////////////////////////////////////////////////
 ?>
 
@@ -33,6 +35,10 @@ include 'php/form_checking.php';
     ================================================== -->
     <link href="css/owl.carousel.css" rel="stylesheet" media="screen">
     <link href="css/owl.theme.css" rel="stylesheet" media="screen">
+      
+    <!--Alerts-->
+    <script src="alert/sweetalert.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="alert/sweetalert.css">
 
     <!-- Stylesheet
     ================================================== -->
@@ -78,7 +84,7 @@ include 'php/form_checking.php';
         <div class="overlay">
             <div class="content">
                 <h1>Welcome on <strong><span class="color">Accomodate Me</span></strong></h1>
-                <p class="lead">Wherever you are <strong>Be Happy</strong></p>
+                <p class="lead" style="text-transform:uppercase">Want to buy a boarding?&nbsp;Have one to sell? <strong>We got you covered!</strong></p>
                 <a href="#tf-about" class="fa fa-angle-down page-scroll"></a>
             </div>
         </div>
@@ -96,19 +102,19 @@ include 'php/form_checking.php';
                     <div class="about-text">
                         <div class="section-title">
                             <h4>About us</h4>
-                            <h2 id="about-header">Some Words about<strong><br>Accomodate Me</strong></h2>
+                            <h2 id="about-header">Who are<strong><br> we?</strong></h2>
                             <hr>
                             <div class="clearfix"></div>
                         </div>
-                        <p class="intro">We are from University of Moratuwa Computer Science and Engineering Department. We want to you to have a boarding place as you like </p>
+                        <p class="intro">MiLKY is a bunch of computer enthusiasts from the 2015th batch of CSE Department of University of Moratuwa.</p>
                         <ul class="about-list">
                             <li>
                                 <span class="fa fa-dot-circle-o"></span>
-                                <strong>Mission</strong> - <em>We want you to be comfortable</em>
+                                <strong>Mission</strong> - <em>Provide accomodations for the best price in the market!</em>
                             </li>
                             <li>
                                 <span class="fa fa-dot-circle-o"></span>
-                                <strong>Clients</strong> - <em>Boarding Owners and Boarding Searchers</em>
+                                <strong>Clients</strong> - <em>Boarding Owners and Boarding Buyers</em>
                             </li>
                         </ul>
                     </div>
@@ -135,7 +141,7 @@ include 'php/form_checking.php';
                             <img src="img/team/01.jpg" alt="..." class="img-circle team-img">
                             <div class="caption">
                                 <h3>Maneesha Indrachapa</h3>
-                                <p>CEO / Founder</p>
+                                <p>Project Manager</p>
                                 <p>Do not seek to change what has come before. Seek to create that which has not.</p>
                             </div>
                         </div>
@@ -146,7 +152,7 @@ include 'php/form_checking.php';
                             <img src="img/team/02.jpg" alt="..." class="img-circle team-img">
                             <div class="caption">
                                 <h3>Lakshika Athapattu</h3>
-                                <p>CEO / Founder</p>
+                                <p>Human Resources</p>
                                 <p>Life is 10% what happens to you and 90% how you react to it.</p>
                             </div>
                         </div>
@@ -157,7 +163,7 @@ include 'php/form_checking.php';
                             <img src="img/team/03.jpg" alt="..." class="img-circle team-img">
                             <div class="caption">
                                 <h3>Kavindu Chamiran</h3>
-                                <p>CEO / Founder</p>
+                                <p>Sales Manager</p>
                                 <p>Optimism is the faith that leads to achievement.Nothing can be done without hope and confidence.</p>
                             </div>
                         </div>
@@ -168,7 +174,7 @@ include 'php/form_checking.php';
                             <img src="img/team/04.jpg" alt="..." class="img-circle team-img">
                             <div class="caption">
                                 <h3>Yasiru Janith</h3>
-                                <p>CEO / Founder</p>
+                                <p>Accounts Manager</p>
                                 <p>Good,better,best. Never let it rest until your good is better and your better is best.</p>
                             </div>
                         </div>
@@ -217,8 +223,8 @@ include 'php/form_checking.php';
                             <span><?php $banned;?></span>
                         </div>
                         <br>
-                            <h3 id="signInForget">Forget Password? <a href=# >Click here</a></h3>
-                            <h3 id="signInAlready">Not yet Registered? <a href="#tf-signup" class="page-scroll">Sign Up</a></h3> <br> 
+                            <h3 id="signInForget">Forgot Password? <a href=# >Click here</a></h3>
+                            <h3 id="signInAlready">New User? <a href="#tf-signup" class="page-scroll">Sign Up</a></h3> <br> 
                         <button type="submit" class="btn tf-btn btn-default" name="submit_signin">Submit</button>
                     </form>
                 </div>
@@ -330,7 +336,7 @@ include 'php/form_checking.php';
                   <span><?php echo $fillAllData;?></span>
                   <h3 id="signUpAlready">Already have an Account <a href="#tf-signin"  class="page-scroll">Sign In</a></h3>
                   <button type="submit" class="btn tf-btn btn-default" name="submit_signup" value="Submit">Submit</button>
-              </form>
+              </form>   
           </div>
         </div>
       </div>

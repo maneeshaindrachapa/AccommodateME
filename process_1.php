@@ -1,10 +1,10 @@
 <?php
 //////////////////////////////////
 include_once("php/Crud.php");
+include_once('php/process_checking.php');
 //////////////////////////////////
 $crud=new Crud();
 
-session_start();
 $emailprof=$_SESSION['email'];
 
 $profile_pic_db=$crud->getData("SELECT profPic FROM users WHERE email='$emailprof'");
@@ -30,6 +30,10 @@ $profile=$profile_pic_db[0]['profPic'];
     <!-- Custom styles for this template -->
     <link href="css/style_process.css" rel="stylesheet" type="text/css">
       
+    <!--Alerts-->
+    <script src="alert/sweetalert.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="alert/sweetalert.css">
+      
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
   </head>
     
@@ -50,6 +54,12 @@ $profile=$profile_pic_db[0]['profPic'];
                 
             </header>
             <div class="col-md-8 col-md-offset-2">
+                <style>
+                    .col-md-8,.col-md-offset-2{
+                        background-color: rgba(74, 74, 74, 0.66);
+                        padding: 10px;
+                    }
+                </style>
             
             <!--profile pic-->    
                 <div class="wrap">
@@ -110,27 +120,49 @@ $profile=$profile_pic_db[0]['profPic'];
                     }
                 </style>
             <!--------------->
-                <h3 class='addboarding_link'><a href=addBoarding.php>Add a Boarding Place</a></h3><br>
+               <br><div class=row>
+                    <div class='col-md-5'>
+                        <h3 class='purchase_link'><a href=addBoarding.php>Purchase Details </a></h3></div>
+                <div class='col-md-2' style="font-size:20px;margin-bottom:5px">
+                        |</div>
+                    <div class="col-md-5">
+                        <h3 class='addboarding_link'><a href=addBoarding.php>Add a Boarding Place</a></h3>
                 <style>
                     .addboarding_link{
+                        text-align: left;
                         transform: scale(1.0);
                         transition-duration: 0.2s;
+                        margin: auto;
+                        margin-top: 1px;
                     }
                     .addboarding_link:hover{
-                        transform: scale(1.2);
+                        transform: scale(1.1);
                         transition-duration: 0.2s;
                     }
-                </style>
-            	<h4>Search For a Boarding Place</h4><br>
-				<form class="form-inline" role="form">
+                    .purchase_link{
+                        text-align: right;
+                        transform: scale(1.0);
+                        transition-duration: 0.2s;
+                        margin: auto;
+                        margin-top:1px;
+                    }
+                    .purchase_link:hover{
+                        transform: scale(1.1);
+                        transition-duration: 0.2s;
+                    }
+                        </style></div></div><br>
+                
+            	<h4>Search For a Boarding Place</h4>
+				<form class="form-inline" role="form" method="post">
 				<div class="row">
                   <div class="col-md-12">
                     <div class="form-group">
-                      For:
-                          <select class="form-control" name="for">
+                        <label for="for">For:</label>
+                    <select class="form-control" name="for" id='for'>
                               <option value="Boys" name="forBoys">Boys</option>
                               <option value="Girls" name="forGirls">Girls</option>
                         </select>
+                      
                   </div> 
                     </div></div>
                       
@@ -138,15 +170,15 @@ $profile=$profile_pic_db[0]['profPic'];
                   <div class="col-md-12">
                     <div class="form-group">
                       <label for="noOfPeople">No of People :</label>
-                        <input type="number" min="1"  class="form-control" id="noOfPeople" placeholder="Enter Number of People" name="" value="1">
+                        <input type="number" min="1"  class="form-control" id="noOfPeople" placeholder="Enter Number of People" name="studentCount" value="1">
                       </div>
                     </div></div>
                     
                 <div class="row">
                     <div class="col-md-12">
                     <div class="form-group">
-                      <label for="priceForBoarding">Monthly Fee: </label>
-                        <input type="number" min="1000" step="500" class="form-control" id="priceForBoarbing" placeholder="Price for Boarding place" name="" value="1000">
+                      <label for="priceForBoarding">Price: </label>
+                        <input type="number" min="1000" step="500" class="form-control" id="priceForBoarbing" placeholder="Optional" name="price" value="">
                       </div>
                     </div></div>
                     
@@ -154,12 +186,19 @@ $profile=$profile_pic_db[0]['profPic'];
                   <div class="col-md-12">
                     <div class="form-group">
                       <label for="distanceForBoarding">Distance for Boarding:</label>
-                        <input type="number" min="100" step="100" class="form-control" id="distanceForBoarding" placeholder="Distance from Boarding" name="" value="100">
+                        <input type="number" min="0" step="100" class="form-control" id="distanceForBoarding" placeholder="Optional" name="distance" value="">
                       </div>
                     </div></div>
                     <br> 
-				  <button type="button" class="btn btn-info">Search</button>
-				</form>            
+				  <button type="submit" class="btn btn-info" name="search_boarding">Search</button>
+                    <?php 
+                    //////////////////////////////////////////
+                    if($noBoarding){
+                        echo '<script>swal("Sorry", "There is no Boarding matching your Requirements.", "error")</script>';    
+                    }
+                    //////////////////////////////////////////
+                    ?>
+				</form>                
 			</div>
             </div>
         

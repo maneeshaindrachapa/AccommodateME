@@ -1,3 +1,72 @@
+<?php
+/////////////////////////////////////
+include_once("php/Crud.php");
+/////////////////////////////////////
+$crud=new Crud();
+
+session_start();
+//print_r($_SESSION);
+echo '<br>';
+$boardingList=$_SESSION['boardingArray'];
+
+
+if(isset($_POST['search_boarding'])){
+    echo $studentCount=(int)$_POST['studentCount'];
+    echo $price=(int)$_POST['price'];
+    echo $distance=(int)$_POST['distance'];
+    echo $for=$_POST['for'];
+    $boardingArray=array();
+
+    $query_count="SELECT * FROM `boarding_details` WHERE studentCount='$studentCount'AND boardingFor='$for'";
+    if(!is_null(mysqli_query($db, $query_count))) {
+        if ($query = mysqli_query($db, $query_count)) {
+            while ($row = mysqli_fetch_assoc($query)) {
+                $boardingID = $row['boardingID'];
+                $boardingPrice=(int)$row['price'];
+                $boardingDistance=(int)$row['distance'];
+
+                if(($price==0)&&($distance==0)){
+                    array_push($boardingArray,$boardingID);
+                }
+
+                if(($price!=0)&&($distance==0)){
+                    if(($price-500<=$boardingPrice)&&($boardingPrice<=$price+500)) {
+                        array_push($boardingArray, $boardingID);
+                    }
+                }
+
+                if(($price==0)&&($distance!=0)){
+                    if(($distance-100<=$boardingDistance)&&($boardingDistance<=$distance+100)){
+                        array_push($boardingArray,$boardingID);
+                    }
+                }
+
+                if(($price!=0)&&($distance!=0)) {
+                    if (($price - 500 <= $boardingPrice) && ($boardingPrice <= $price + 500)) {
+                        if (($distance - 100 <= $boardingDistance) && ($boardingDistance <= $distance + 100)) {
+                            array_push($boardingArray, $boardingID);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    if(!empty($boardingArray)){
+        //print_r($boardingArray);
+        $_SESSION['boardingArray']=$boardingArray;
+        //print_r($_SESSION);
+        header("location:searchResult.php");
+    }else{
+        echo "No result Found";
+        $_SESSION['boardingArray']=$boardingArray;
+        //print_r($_SESSION);
+        header("location:searchResult.php");
+    }
+}
+
+
+?>
+
 <!DOCTYPE html>
 <html class="am-sr">
 <head>
@@ -46,142 +115,63 @@
 
 <div id="search-res">
     <ul>
-    <li><a href="#">
-        <img src="img/searchResults/project-1.jpg" >
-        <div class="overlay">
-            <summary>
-                <h2>Maneesha</h2><h3>the Owner</h3>
-            </summary>
-            <div class="addCart">
-                <h2><i class="fa fa-shopping-cart" aria-hidden="true"></i></h2>
-            </div></div></a></li>
-    <li><a href="#">
-        <img src="img/searchResults/project-2.jpg" >
-        <div class="overlay">
-            <summary>
-                 <h2>Maneesha</h2><h3>the Owner</h3>
-            </summary>
-            <div class="addCart">
-               <h2><i class="fa fa-shopping-cart" aria-hidden="true"></i></h2>
-            </div></div></a></li>
-    <li><a href="#">
-        <img src="img/searchResults/project-3.jpg" >
-        <div class="overlay">
-            <summary>
-                 <h2>Maneesha</h2><h3>the Owner</h3>
-            </summary>
-            <div class="addCart">
-                <h2><i class="fa fa-shopping-cart" aria-hidden="true"></i></h2>
-            </div></div></a></li>
-    <li><a href="#">
-        <img src="img/searchResults/project-4.jpg"   >
-        <div class="overlay">
-            <summary>
-                 <h2>Maneesha</h2><h3>the Owner</h3>
-            </summary>
-            <div class="addCart">
-                <h2><i class="fa fa-shopping-cart" aria-hidden="true"></i></h2>
-            </div></div></a></li>
-    <li><a href="#">
-        <img src="img/searchResults/project-5.jpg"   >
-        <div class="overlay">
-            <summary>
-                 <h2>Maneesha</h2><h3>the Owner</h3>
-            </summary>
-            <div class="addCart">
-                <h2><i class="fa fa-shopping-cart" aria-hidden="true"></i></h2>
-            </div></div></a></li>
-    <li><a href="#">
-        <img src="img/searchResults/project-7.jpg"   >
-        <div class="overlay">
-            <summary>
-                <h2>Maneesha</h2><h3>the Owner</h3>
-            </summary>
-            <div class="addCart">
-                <h2><i class="fa fa-shopping-cart" aria-hidden="true"></i></h2>
-            </div></div></a></li><br>
-    <li><a href="#">
-        <img src="img/searchResults/project-8.jpg"   >
-        <div class="overlay">
-            <summary>
-                 <h2>Maneesha</h2><h3>the Owner</h3>
-            </summary>
-            <div class="addCart">
-                <h2><i class="fa fa-shopping-cart" aria-hidden="true"></i></h2>
-            </div></div></a></li>
-    <li><a href="#">
-        <img src="img/searchResults/project-9.jpg"   >
-        <div class="overlay">
-            <summary>
-                 <h2>Maneesha</h2><h3>the Owner</h3>
-            </summary>
-            <div class="addCart">
-                <h2><i class="fa fa-shopping-cart" aria-hidden="true"></i></h2>
-            </div></div></a></li>
-    <li><a href="#">
-        <img src="img/searchResults/project-10.jpg"   >
-        <div class="overlay">
-            <summary>
-                <h2>Maneesha</h2><h3>the Owner</h3>
-            </summary>
-            <div class="addCart">
-                <h2><i class="fa fa-shopping-cart" aria-hidden="true"></i></h2>
-            </div></div></a></li>
-    <li><a href="#">
-        <img src="img/searchResults/project-11.jpg"   >
-        <div class="overlay">
-            <summary>
-                 <h2>Maneesha</h2><h3>the Owner</h3>
-            </summary>
-            <div class="addCart">
-                <h2><i class="fa fa-shopping-cart" aria-hidden="true"></i></h2>
-            </div></div></a></li>
-    <li><a href="#">
-        <img src="img/searchResults/project-6.jpg"   >
-        <div class="overlay">
-            <summary>
-                 <h2>Maneesha</h2><h3>the Owner</h3>
-            </summary>
-            <div class="addCart">
-                <h2><i class="fa fa-shopping-cart" aria-hidden="true"></i></h2>
-            </div></div></a></li>
-    <li><a href="#">
-        <img src="img/searchResults/project-6.jpg"   >
-        <div class="overlay">
-            <summary>
-                 <h2>Maneesha</h2><h3>the Owner</h3>
-            </summary>
-            <div class="addCart">
-               <h2><i class="fa fa-shopping-cart" aria-hidden="true"></i></h2>
-            </div></div></a></li>
+    <?php
+    $boardinCount=sizeof($boardingList);
+    for($temp=0; $temp<$boardinCount; $temp++) {
+        $boardingID=$boardingList[$temp];
+        //echo 'boardingID :'.$boardingID.'<br>';
+        $query =$crud->getData("SELECT * FROM `boarding_details` WHERE boardingID='$boardingID'");
+        if (sizeof($query)>0) {
+           for($x=0;$x<sizeof($query);$x++){
+                $userID = $query[$x]['userID'];
+                $studentCount=$query[$x]['studentCount'];
+                $price=$query[$x]['price'];
+                $distance=$query[$x]['distance'];
+                $address=$query[$x]['address'];
+                $boardingFor=$query[$x]['boardingFor'];
+
+                $imageName='u'.$userID.'b'.$boardingID.'img00.jpg';
+                $location="uploads/$imageName";
+                echo '<li><a href="boardingProfile.php?boardingID='.$boardingID.'"><div style="background-image:url('.$location.')" class="boardingImage"></div>
+                      <div class="overlay">
+                        <summary>
+                            <h4><u><strong>Boarding Details</strong></u></h4>
+                            <h5>'.'Boarding For : '.$boardingFor.'</h5>
+                            <h5>'.'Number of Student : '.$studentCount.'</h5>
+                            <h5>'.'Monthly Fee : Rs.'.$price.'</h5>
+                            <h5>'.'Distance : '.$distance.' m '.'</h5>
+                        </summary>
+                      <div class="addCart">
+                        <h2><i class="fa fa-shopping-cart" aria-hidden="true"></i></h2>
+                      </div></div></a></li>';
+            }
+        }
+    }
+        ?>
 
 </ul>
 </div>
         
         <div class="col-md-8 col-md-offset-2">
-            <span class="resPages"><a href="#">&#91;04&#93;&nbsp;</a></span>
-        <span class="resPages"><a href="#">&#91;03&#93;&nbsp;</a></span>
-        <span class="resPages"><a href="#">&#91;02&#93;&nbsp;</a></span>
-        <span class="resPages"><a href="#">&#91;01&#93;&nbsp;</a></span>
-            <style>
-            .resPages{
-                font-size: 15px;
-                color: #fff;
-                float: right;
-            }
-            .resPages:hover{
-                color:#FCAC45;
-            }
-            </style>
+        
         <h3 class="row">Search For a Boarding Place</h3><br>
 				<form class="form-inline" role="form">
-				
+				<div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label for="boardingFor">For :&nbsp; </label>
+                                <select class="form-control" name="for" id="boardingFor">
+                                    <option value="Boys" name="forBoys">Boys</option>
+                                    <option value="Girls" name="forGirls">Girls</option>
+                                </select>
+                            </div>
+                        </div></div>
                       
                 <div class="row">
                   <div class="col-md-12">
                     <div class="form-group">
                       <label for="noOfPeople">No of People :&nbsp;</label>
-                        <input type="number" min="1"  class="form-control" id="noOfPeople" placeholder="Enter Number of People" name="" value="1">
+                        <input type="number" min="1"  class="form-control" id="noOfPeople" placeholder="Enter Number of People" name="studentCount" value="1">
                       </div>
                     </div></div>
                     
@@ -189,7 +179,7 @@
                     <div class="col-md-12">
                     <div class="form-group">
                       <label for="priceForBoarding">Price:&nbsp; </label>
-                        <input type="number" min="1000" step="500" class="form-control" id="priceForBoarbing" placeholder="Price for Boarding place" name="" value="1000">
+                        <input type="number" min="1000" step="500" class="form-control" id="priceForBoarbing" placeholder="Optional" name="price" value="">
                       </div>
                     </div></div>
                     
@@ -197,12 +187,12 @@
                   <div class="col-md-12">
                     <div class="form-group">
                       <label for="distanceForBoarding">Distance for Boarding:&nbsp;</label>
-                        <input type="number" min="100" step="100" class="form-control" id="distanceForBoarding" placeholder="Distance from Boarding" name="" value="100">
+                        <input type="number" min="100" step="100" class="form-control" id="distanceForBoarding" placeholder="Optional" name="distance" value="">
                       </div>
                     </div></div>
                     <br>
                     <div class="row">
-                        <button type="button" class="btn btn-info">Search</button></div>
+                        <button type="submit" class="btn btn-info" name="search_bording">Search</button></div>
 				</form><br><br>
         </div> 
 </section>

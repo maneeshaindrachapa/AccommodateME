@@ -31,10 +31,10 @@ h4{
 }
 
 h1, h2, h3 {
-    margin-top: 2x;
+    margin-top: auto;
     font-weight: 100;
 /*    margin-bottom: 5px;*/
-    font-size: 15px;
+    font-size: 20px;
 }
 h1{
 	font-size: 55px;
@@ -55,9 +55,12 @@ a:hover,a:focus{
 }
 
 .details{
-    margin-left: 35%;
+    margin-left:17%;
     font-size: 15px;
     margin-bottom: 5px;
+}
+.details .rightsidge{
+    float: right;
 }
 
 .item,

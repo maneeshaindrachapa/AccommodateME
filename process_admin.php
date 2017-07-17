@@ -50,6 +50,7 @@ $boardingDetails=$crud->getData("SELECT boardingID,userID,boardingFor,studentCou
                 <th>telephone</th>
                 <th>type</th>
                 <th>Active Account</th>
+                
             </tr>
             </thead>
             <tbody>

@@ -121,8 +121,14 @@ section#content #search-res ul li{
 section#content #search-res ul li a{
     text-decoration:none;
 }
-section#content #search-res ul li img{
-    width:100%;
+section#content #search-res ul li .boardingImage{
+    width:449px;
+    height: 359px;
+    background-size:cover;
+    background-position:50% 50%;
+/*    background-size: 150px;*/
+    background-repeat: no-repeat;
+    
 }section#content #search-res ul li .overlay{
     background-color:rgba(248,129,75,.9);
     height:100%;

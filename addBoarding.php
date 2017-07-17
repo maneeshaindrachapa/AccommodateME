@@ -139,7 +139,7 @@ $crud=new Crud();
                   </div>
 
               </form>
-                <button style="float:right" class="btn btn-primary" onclick="history.go(-1);"><a href="" style="color:white;text-decoration:none">Go to Previous Page</a></button>
+                <button style="float:right" class="btn btn-primary" ><a href="process_1.php" style="color:white;text-decoration:none">Go to Previous Page</a></button>
 			</div>
             
             </div>

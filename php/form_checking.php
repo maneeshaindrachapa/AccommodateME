@@ -2,6 +2,7 @@
 //////////////////////////////////
 include_once("Crud.php");
 include_once('Validation.php');
+include("PHPMailer/PHPMailerAutoload.php");
 //////////////////////////////////
 session_start();
 
@@ -11,7 +12,14 @@ $validation=new Validation();
 ////////////////////////////////variables for errors
 $error_message_EM=$error_message_FN=$error_message_LN=$error_message_PW=$error_message_RPW=$error_message_TEL="";
 $fillAllData=$accountAlreadyThere="";
+$accountCreate='false';
+$accountConfirm='false';
+$confirmationCode=rand(1000000000,9999999999);
 ////////////////////////////////
+function setConfirm($value){
+    $accountConfirm=$value;
+}
+
 
 ////////////////////////////////variables for values
 $firstName=$lastName=$email=$password=$re_password=$telephone="";
@@ -71,8 +79,132 @@ if(isset($_POST['submit_signup'])){
     }elseif(!$check_telephone){
         $error_message_TEL="*Telephone number is not valid";
     }else{
-    //if all the fields are filled
-    $result=$crud->execute("INSERT INTO users(firstName,lastName,email,password,telephone,type,profPic,active) VALUES ('$firstName','$lastName','$email','$password','$telephone','$type','$profPic','$active')");
+        if($type=='searcher'){
+                    //sending confirmation email to searcher
+            $mail = new PHPMailer();
+
+            $mail->isSMTP();
+            $mail->Host = "smtp.gmail.com";  // Specify main and backup SMTP servers
+            $mail->SMTPAuth = true;                               // Enable SMTP authentication
+            $mail->Username = 'maneesh.15@cse.mrt.ac.lk';                 // SMTP username
+            $mail->Password = 'queengambit';                           // SMTP password
+            $mail->SMTPSecure = 'tls';                            // Enable encryption, 'ssl' also accepted
+            $mail->From = 'maneesh.15@cse.mrt.ac.lk';
+            $mail->FromName = 'AccomodateME';
+            $mail->WordWrap = 50;
+            $mail->Port = 587;
+            $mail->isHTML(true);
+
+
+            $mail->addAddress($_POST['email']);     // add sellers address from db
+            $mail->Subject = 'AccomodateME - Account created';
+            $mail->Body =
+
+                '
+            <!doctype html>
+            <html>
+            <body>
+            <h1>Welcome to AccomodateME!</h1>
+
+            <p><b>We are happy to inform you that your account is successfully created.</b></p><br>
+            <p>This is your Confirmation code:<h2>'.$confirmationCode.'</h2>
+
+            <p>Now you can log into our members area and start posting advertisements.</p>
+
+            <p>Please make sure you have read the ad-posting rules and guidelines before continuing.</p>
+
+            <p>If you didn\'t sign up on our website using this email, that means your email account is compromised.</p>
+
+            <p>Please contact our accounts manager Yasiru @ 0776097828 as soon as possible.</p>
+
+            <p>Thank you for using our services. Hope to deal with you again.</p>
+
+            <p>----------------------------------------------------------------------------------------------------------------------</p>
+
+            <p>Please don&#39;t reply to this email as this inbox is not monitored.</p>
+
+            <p><a href="http://www.accomodate.me">www.accomodate.me</a></p>
+            </body>
+            </html>
+
+
+
+            ';
+
+            if (!$mail->send()) {
+                echo 'Message could not be sent. seller';
+                echo 'Mailer Error: ' . $mail->ErrorInfo;
+            } else {
+                // echo 'Message has been sent';
+            }
+            $accountCreate='true';
+            //header('location:process.php');
+    }
+        elseif($type=='owner'){
+            $mail = new PHPMailer();
+
+            $mail->isSMTP();
+            $mail->Host = "smtp.gmail.com";  // Specify main and backup SMTP servers
+            $mail->SMTPAuth = true;                               // Enable SMTP authentication
+            $mail->Username = 'maneesh.15@cse.mrt.ac.lk';                 // SMTP username
+            $mail->Password = 'queengambit';                           // SMTP password
+            $mail->SMTPSecure = 'tls';                            // Enable encryption, 'ssl' also accepted
+            $mail->From = 'maneesh.15@cse.mrt.ac.lk';
+            $mail->FromName = 'AccomodateME';
+            $mail->WordWrap = 50;
+            $mail->Port = 587;
+            $mail->isHTML(true);
+
+
+            $mail->addAddress($_POST['email']);     // add sellers address from db
+            $mail->Subject = 'AccomodateME - Account created';
+            $mail->Body =
+
+                '
+            <!doctype html>
+            <html>
+            <body>
+            <h1>Welcome to AccomodateME!</h1>
+
+            <p><b>We are happy to inform you that your account is successfully created.</b></p><br>
+            <p>This is your Confirmation code:<h2>'.$confirmationCode.'</h2>
+
+            <p>Now you can log into our members area and start searching for boarding places.</p>
+
+            <p>Please make sure you have read the bidding rules and guidelines before continuing.</p>
+
+            <p>If you didn\'t sign up on our website using this email, that means your email account is compromised.</p>
+
+            <p>Please contact our accounts manager Yasiru @ 0776097828 as soon as possible.</p>
+
+            <p>Thank you for using our services. Hope to deal with you again.</p>
+
+            <p>----------------------------------------------------------------------------------------------------------------------</p>
+
+            <p>Please don&#39;t reply to this email as this inbox is not monitored.</p>
+
+            <p><a href="http://www.accomodate.me">www.accomodate.me</a></p>
+            </body>
+            </html>
+
+
+
+            ';
+
+            if (!$mail->send()) {
+                echo 'Message could not be sent. seller';
+                echo 'Mailer Error: ' . $mail->ErrorInfo;
+            } else {
+                // echo 'Message has been sent';
+            }
+            $accountCreate='true';
+            //header('location:process_1.php');
+        }
+        if($accountCreate){
+        $result=$crud->execute("INSERT INTO users(firstName,lastName,email,password,telephone,type,profPic,active,confirmationCode) VALUES ('$firstName','$lastName','$email','$password','$telephone','$type','$profPic','$active','$confirmationCode')");
+        header("location:confirmation.php");
+        }           
+    
     }
     
     ///////////////////////////////////////////*profile pic adding
@@ -95,19 +227,12 @@ if(isset($_POST['submit_signup'])){
                 $new_p_name=$p_id.'.'.$p_extention;
 
                 if (move_uploaded_file($p_temp_name, "$location/" .$new_p_name)) {
-                    $prof_pic_result=$crud->execute("UPDATE users SET profPic='$new_p_name' WHERE email='$email'"); 
+                    $prof_pic_result=$crud->execute("UPDATE users SET profPic='$new_p_name' WHERE email='$email'");
                 }
             }    
         }
     }
-    //////////////////////////////////////////
-    
-    if($type=='searcher'){
-        header('location:process.php');
-    }else{
-        header('location:process_1.php');
-    }
-    
+    ////////////////////////////////////////// 
 }
 
 //sign in
@@ -119,14 +244,21 @@ if(isset($_POST['submit_signin'])){
         $password_db=$account[0]["password"];
         $active_db=$account[0]['active'];
         $type_db=$account[0]['type'];
+        $confirmationCodeCheck=$account[0]['confirmationCodeCheck'];
+        $confirmationCode=$account[0]['confirmationCode'];
         if($active_db=='true'){
             if($password_input==$password_db){
-                if($type_db=='owner'){
+                
+                if($confirmationCodeCheck==$confirmationCode){
+                    if($type_db=='owner'){
                     header("location:process_1.php");
-                }elseif($type_db=='admin'){
-                    header("location:process_admin.php");
+                    }elseif($type_db=='admin'){
+                        header("location:process_admin.php");
+                    }else{
+                        header("location:process.php");
+                    }
                 }else{
-                    header("location:process.php");
+                header('location:confirmation.php');
                 }
             }else{
                 $passwordErr="*Invalid Password";
@@ -141,7 +273,6 @@ if(isset($_POST['submit_signin'])){
     $email_input="";
     $password_input="";
 }
-
 
 
 

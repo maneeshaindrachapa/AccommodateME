@@ -56,14 +56,15 @@ if(isset($_POST['submit'])){
                 $price = '500';
                 $studentCount = '1';
                 $password = '';
-                $distance = '100';
+                $distance = '';
                 $address='';
 
                 /*finding the last boarding ID (boarding ID of the current boarding input)
                 =========================================================================*/
 
                             $query_lastid=$crud->getData("SELECT * FROM `boarding_details` ORDER BY boardingID DESC");
-                             $last_boarding_id=$$query_lastid[0]['boardingID'];
+                            $last_boarding_id=$query_lastid[0]['boardingID'];
+                            print_r($last_boarding_id);
                                         
                                         /*photo adding process
                                         ======================*/
