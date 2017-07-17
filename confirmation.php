@@ -10,7 +10,7 @@ $email=$_SESSION['email'];
 
 <html>
 <head>
-    <title>Confirm Password</title>
+    <title>Confirm Account</title>
     
     <!--Alerts-->
     <script src="alert/sweetalert.min.js"></script>
