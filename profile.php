@@ -1,8 +1,11 @@
 <?php
-//////////////////////////////////////////////////////////////////
-require 'database/connect.inc.php';
-include 'php/profile_checking.php';
-//////////////////////////////////////////////////////////////////
+//////////////////////////////////
+include_once("php/Crud.php");
+include_once('php/Validation.php');
+include('php/profile_checking.php');
+//////////////////////////////////
+$crud=new Crud();
+$validation=new Validation();
 ?>
 
 <!DOCTYPE html>
@@ -29,7 +32,22 @@ include 'php/profile_checking.php';
         
           <div class="col-md-3">
             <div class="text-center">
-              <img src="<?php echo $location; ?>" class="avatar img-circle" alt="avatar" height="150px" width="150px" >
+                <div  class="avatar img-circle"></div>
+                <style>
+                    .avatar{
+                        height:150px;
+                        width: 150px;
+                        background-image:url('<?php echo $location; ?>');
+                        background-size:cover;
+                        background-position:50% 50%;
+                        background-size: 150px;
+                        background-repeat: no-repeat;
+                    }
+                    .img-circle{
+                        margin-left:50px;
+                    }
+                </style>
+                
               <h6>Upload a Different Photo</h6>
               <h6>&#91;Use 1024&nbsp;&chi;&nbsp;1024px Photo&#93;</h6>
               <input type="file" class="form-control" name="profilepicture"> <br>
@@ -53,15 +71,13 @@ include 'php/profile_checking.php';
                             if(is_dir($location)==false){
                                 mkdir("$location", 0700);// Create directory if it does not exist
                                         }
-                            $sql6="SELECT userID FROM users WHERE email='$email' ";
-                            $result6 =$db->query($sql6);
-                            $row6 = mysqli_fetch_assoc($result6);
-                            $p_id=$row6['userID'];
+                            $prof_pic=$crud->getData("SELECT userID FROM users WHERE email='$email'");
+                            $p_id=$prof_pic[0]['userID'];
                             $new_p_name=$p_id.'.'.$p_extention;
 
                             if (move_uploaded_file($p_temp_name, "$location/" .$new_p_name)) {
-                                $sql = "UPDATE users SET profPic='$new_p_name' WHERE email='$email'";
-                                mysqli_query($db,$sql);header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
+                                $prof_pic_result=$crud->execute("UPDATE users SET profPic='$new_p_name' WHERE email='$email'");
+                                header("Cache-Control: no-store, no-cache, must-revalidate, max-age=0");
                                 header("Cache-Control: post-check=0, pre-check=0", false);
                                 header("Pragma: no-cache");
                                 header("location:profile.php");
@@ -108,7 +124,7 @@ include 'php/profile_checking.php';
             <div class="form-group">
                 <label class="col-lg-3 control-label">E-mail:</label>
                 <div class="col-lg-8">
-                    <input class="form-control" type="tel" value="<?php echo $email; ?>" name="email"><span><?php echo $error_message_EM;?></span>
+                    <input class="form-control" type="email" value="<?php echo $email; ?>" name="email" disabled><span><?php echo $error_message_EM;?></span>
                 </div>
             </div>
           <div class="form-group">
@@ -128,6 +144,7 @@ include 'php/profile_checking.php';
                 <label class="col-lg-3 control-label">Old password:</label>
                 <div class="col-lg-8">
                     <input class="form-control" type="password" placeholder="**********" name="oldPassword"><span><?php echo $error_message_OPW;?></span>
+                    <span><?php echo $fillAllData;?></span>
                 </div>
             </div>
 

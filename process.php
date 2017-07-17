@@ -1,14 +1,14 @@
 <?php
-////////////////////////////////////////////////////
-require 'database/connect.inc.php';
+//////////////////////////////////
+include_once("php/Crud.php");
+//////////////////////////////////
+$crud=new Crud();
 
 session_start();
 $emailprof=$_SESSION['email'];
 
-$sql4 = "SELECT profPic FROM users WHERE email='$emailprof' ";
-$result4 = $db->query($sql4);
-$row4 = mysqli_fetch_assoc($result4);
-$profile=$row4['profPic'];
+$profile_pic_db=$crud->getData("SELECT profPic FROM users WHERE email='$emailprof'");
+$profile=$profile_pic_db[0]['profPic'];
 ////////////////////////////////////////////////////
 ?>
 

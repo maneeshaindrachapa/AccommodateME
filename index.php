@@ -1,8 +1,8 @@
 <?php
-//////////////////////////////////////////////////////////////////////////////////////
-require 'database/connect.inc.php';
+//////////////////////////////////////////////////////////////////
+include_once("php/Crud.php");
 include 'php/form_checking.php';
-//////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////
 ?>
 
 <!DOCTYPE html>
@@ -204,7 +204,7 @@ include 'php/form_checking.php';
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="exampleInputEmail1">Email address</label>
-                                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email" name="email_signin"><span><?php echo $noAccount;?></span>
+                                    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email" name="email_signin">
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -213,7 +213,8 @@ include 'php/form_checking.php';
                                     <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="password_signin"><span><?php echo $passwordErr;?></span>
                                 </div>
                             </div>
-                            <span><?php echo $banned;?></span>
+                            <span><?php echo $noAccount;?></span>
+                            <span><?php $banned;?></span>
                         </div>
                         <br>
                             <h3 id="signInForget">Forget Password? <a href=# >Click here</a></h3>
@@ -253,7 +254,7 @@ include 'php/form_checking.php';
                     <div class="col-md-6">
                     <div class="form-group">
                       <label for="exampleInputLastName2">Last Name</label>
-                        <input type="text" class="form-control" id="exampleInputLastName2" placeholder="Enter Last Name" name="lastName" value="<?php print $lastName; ?>"><span><?php echo $error_message_LN;?></span>
+                        <input type="text" class="form-control" id="exampleInputLastName2" placeholder="Enter Last Name" name="lastName" value="<?php print $lastName; ?>"><span><?php //echo $error_message_LN;?></span>
                       </div>
                     </div>
                   </div>
@@ -283,7 +284,7 @@ include 'php/form_checking.php';
                     <div class="col-md-6">
                         <div class="form-group">
                         <label for="exampleInputreenterPassword2">Re-enter Password</label>
-                            <input type="password" class="form-control" id="exampleInputreenterPassword2" placeholder="Re-enter password" name="re_password" value="<?php print $re_password ?>"><span><?php echo $error_message_RPW;?></span>
+                            <input type="password" class="form-control" id="exampleInputreenterPassword2" placeholder="Re-enter password" name="re_password" value="<?php $re_password ?>"><span><?php echo $error_message_RPW;?></span>
                       </div>
                     </div>
                   </div>       
@@ -302,7 +303,7 @@ include 'php/form_checking.php';
                         `
                         <div class="selectType">
                         <label  id="selectOne"  for="exampleInputType1">
-                            <input type="checkbox" class="form-control" id="exampleInputType1" name="boarding-searcher" onclick="selectOnlyThis(this.id)">
+                            <input type="checkbox" class="form-control" id="exampleInputType1" name="boarding-searcher" checked onclick="selectOnlyThis(this.id)">
                             Boarding Searcher</label><br>
                         </div>
                         

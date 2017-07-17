@@ -1,183 +1,148 @@
 <?php
-//require 'phpmail.php';
-
-////////////////////////////////////////////
+//////////////////////////////////
+include_once("Crud.php");
+include_once('Validation.php');
+//////////////////////////////////
 session_start();
-////////////////////////////////////////////
 
-/* Signup page
-===========================================*/
+$crud=new Crud();
+$validation=new Validation();
 
-////////////////////////////////////////////
-//variables signup
+////////////////////////////////variables for errors
 $error_message_EM=$error_message_FN=$error_message_LN=$error_message_PW=$error_message_RPW=$error_message_TEL="";
 $fillAllData=$accountAlreadyThere="";
+////////////////////////////////
 
-//adding variables for html to show error messages signin
+////////////////////////////////variables for values
+$firstName=$lastName=$email=$password=$re_password=$telephone="";
+
 $passwordErr= $noAccount=$banned="";
-////////////////////////////////////////////
+////////////////////////////////   
 
 
-
-$owner_status='unchecked';
-$searcher_status='unchecked';
-if(isset($_POST['submit_signup'])) {
-    $firstName = $_POST['firstName'];
-    $lastName = $_POST['lastName'];
-    $email =$_SESSION['email']= $_POST['email'];
-    $password = $_POST['password'];
-    $re_password = $_POST['re_password'];
+///sign Up
+if(isset($_POST['submit_signup'])){
+    $firstName=$crud->escape_string($_POST['firstName']);
+    $lastName=$crud->escape_string($_POST['lastName']);
+    $email=$crud->escape_string($_POST['email']);
+    $password=$crud->escape_string($_POST['password']);
+    $re_password=$crud->escape_string($_POST['re_password']);
     $telephone=$_POST['telNo'];
+    
+    $_SESSION['email']=$email;
+    
     $searcher_status=isset($_POST['boarding-searcher'])?"checked":"unchecked";
     $owner_status=isset($_POST['boarding-owner'])?"checked":"unchecked";
-    $date = date('y-m-d');
     $active="true";
     $type='searcher';
     if($searcher_status=='unchecked'){
         $type='owner';
     }
     
-    //////////////////////////////////////////
-    //error checking
-    $string_exp = "/^[A-Za-z0-9 .'-]+$/";
-      if(!preg_match($string_exp,$firstName)) {
-        $error_message_FN = '*The First Name you entered does not appear to be valid.<br />';
-      }
-      if(!preg_match($string_exp,$lastName)) {
-        $error_message_LN = '*The Last Name you entered does not appear to be valid.<br />';
-      }  
-    $email_exp = '/^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/';
-      if(!preg_match($email_exp,$email)) {
-        $error_message_EM = '*The Email Address you entered does not appear to be valid.<br />';
-      }
-    if(strlen($password)<8){
-        $error_message_PW='*Password Should have atleast 8 characters';
-    }
-    if(($password)!=$re_password){
-        $error_message_RPW='*Do not match with Password';
-    }
-    $tel_string='/^[0-9]{10}+$/';//10 digits in tel no
-    if(!preg_match($tel_string,$telephone)){
-        $error_message_TEL='*Telephone Number is not valid';
-    }
-    //////////////////////////////////////////
-
-    if((strlen($error_message_FN)>0) || (strlen($error_message_LN))>0 ||(strlen($error_message_EM)>0) ||(strlen($error_message_TEL)>0)|| (($password)!=$re_password)){
-        //Returning to index.php using $_SERVER['PHP_SELF']
-    }
-    else{
-        if(isset($_POST['firstName']) && isset($_POST['lastName']) && isset($_POST['email']) && isset($_POST['password'])&& isset($_POST['telNo'])&& isset($_POST['re_password']) && (($searcher_status=='checked')||($owner_status=='checked')) ){
-
-            $query="SELECT * FROM users WHERE email='$email'";
-            if($query_run=mysqli_query($db, $query)){
-                if(is_null(mysqli_fetch_assoc($query_run))){
-                        $query_add="INSERT INTO users VALUES(NULL, '$firstName', '$lastName', '$email', '$password', '$telephone','$type', '$date','default.jpg','$active')";
-                        if(mysqli_query($db, $query_add)){
-                            $firstName='';
-                            $lastName='';
-                            $password='';
-                            $re_password='';
-                            $telephone='';
-                            
-                            ///////////////////////////////////////////
-                            $p_name=$_FILES['profilepicture']['name'];
-                            $p_size=$_FILES['profilepicture']['size'];
-                            $p_type=$_FILES['profilepicture']['type'];
-                            $p_temp_name=$_FILES['profilepicture']['tmp_name'];
-                            $p_extention=strtolower(substr($p_name,strpos($p_name,'.')+1));
-                            $p_max_size=5242880;
-                            
-                            if(isset($p_name)){
-                                if(!empty($p_name)){
-                                    if(($p_extention=='jpg' || $p_extention=='jpeg')&&($p_type=='image/jpeg')&&($p_size<=$p_max_size)){
-                                        $location = 'profPic';
-                                        if(is_dir($location)==false){
-                                            mkdir("$location", 0700);// Create directory if it does not exist
-                                                    }
-                                        $sql3 = "SELECT userID FROM users WHERE email='$email' ";
-                                        $result3 = $db->query($sql3);
-                                        $row3 = mysqli_fetch_assoc($result3);
-                                        $p_id=$row3['userID'];
-                                        $new_p_name=$p_id.'.'.$p_extention;
-                                        
-                                        if (move_uploaded_file($p_temp_name, "$location/" .$new_p_name)) {
-                                            $sql = "UPDATE users SET profPic='$new_p_name' WHERE email='$email'";
-                                            mysqli_query($db,$sql);   
-                                        }
-                                    }    
-                                }
-                            }
-                            //////////////////////////////////////////
-                            
-                            
-                            
-                            if($searcher_status=='checked'){
-                                header("location:process.php");
-                           }elseif($owner_status=='checked'){
-                                header("location:process_1.php");
-                            }
-                        }else{
-                            }
-                    }else{
-                    $accountAlreadyThere='*Account Already on This E-mail!';
-                        }
-            }
-        }
-        else{
-            $fillAllData='*Fill All Data to Make the Account!';
-        }
+    $profPic="default.jpg";
     
- 
+    
+    $msg=$validation->check_empty($_POST,array('firstName','lastName','email','password','re_password','telNo'));
+    $check_firstname=$validation->is_name_valid($_POST['firstName']);
+    $check_lastname=$validation->is_name_valid($_POST['lastName']);
+    $check_email=$validation->is_email_valid($_POST['email']);
+    $password_length=$validation->password_length($_POST['password']);
+    $check_password=$validation->is_password_valid($_POST['password'],$_POST['re_password']);
+    $check_telephone=$validation->is_tel_valid($_POST['telNo']);
+
+    
+    $account_there=($crud->getData("SELECT * FROM users WHERE email='$email'"));
+        
+    //checking empty fields
+    if($msg!=null){
+        $fillAllData="*Fill all Data";
+    }elseif(!$check_firstname){
+        $error_message_FN='*The first name you entered does not seem correct';
+    }elseif(!$check_lastname){
+        $error_message_LN='*The last name you entered does not seem correct';
+    }elseif(!$check_email){
+        $error_message_EM= '*the email you entered does not seems correct';
+    }elseif(!empty($account_there)){
+        $accountAlreadyThere="*There is an account already from this e-mail";
+    }elseif(!$check_password){
+        $error_message_RPW="*Does not match with password";
+    }elseif(!$password_length){
+        $error_message_PW="*Password must contain at least 8 characters";
+    }elseif(!$check_telephone){
+        $error_message_TEL="*Telephone number is not valid";
+    }else{
+    //if all the fields are filled
+    $result=$crud->execute("INSERT INTO users(firstName,lastName,email,password,telephone,type,profPic,active) VALUES ('$firstName','$lastName','$email','$password','$telephone','$type','$profPic','$active')");
     }
-}else{
-    $firstName='';
-    $lastName='';
-    $email='';
-    $password='';
-    $re_password='';
-    $telephone='';
+    
+    ///////////////////////////////////////////*profile pic adding
+    $p_name=$_FILES['profilepicture']['name'];
+    $p_size=$_FILES['profilepicture']['size'];
+    $p_type=$_FILES['profilepicture']['type'];
+    $p_temp_name=$_FILES['profilepicture']['tmp_name'];
+    $p_extention=strtolower(substr($p_name,strpos($p_name,'.')+1));
+    $p_max_size=5242880;
+
+    if(isset($p_name)){
+        if(!empty($p_name)){
+            if(($p_extention=='jpg' || $p_extention=='jpeg')&&($p_type=='image/jpeg')&&($p_size<=$p_max_size)){
+                $location = 'profPic';
+                if(is_dir($location)==false){
+                    mkdir("$location", 0700);// Create directory if it does not exist
+                            }
+                $prof_pic=$crud->getData("SELECT userID FROM users WHERE email='$email'");
+                $p_id=$prof_pic[0]['userID'];
+                $new_p_name=$p_id.'.'.$p_extention;
+
+                if (move_uploaded_file($p_temp_name, "$location/" .$new_p_name)) {
+                    $prof_pic_result=$crud->execute("UPDATE users SET profPic='$new_p_name' WHERE email='$email'"); 
+                }
+            }    
+        }
+    }
+    //////////////////////////////////////////
+    
+    if($type=='searcher'){
+        header('location:process.php');
+    }else{
+        header('location:process_1.php');
+    }
+    
 }
 
-/* Signin page
-    ===========================================*/
+//sign in
 if(isset($_POST['submit_signin'])){
-
-    
-    $email_input =$_SESSION['email']= $_POST['email_signin'];
+    $email_input=$_SESSION['email']=$_POST['email_signin'];
     $password_input=$_POST['password_signin'];
-    $query="SELECT * FROM users WHERE email='$email_input'";
-    if($query_run=mysqli_query($db, $query)){
-        if(!is_null(mysqli_fetch_assoc($query_run))){
-            if($query_run=mysqli_query($db, $query)) {
-                while ($row = mysqli_fetch_assoc($query_run)) {
-                    $password_db=$row['password'];
-                    $active=$row['activeAccount'];
-                    if($active=="true"){
-                    if($password_input==$password_db){
-                        $type_db=$row['type'];
-                        if($type_db=='owner'){
-                             header("location:process_1.php");
-                        }elseif($type_db=='admin'){
-                            header("location:process_admin.php");
-                        }
-                        else{
-                            header("location:process.php");
-                        }
-                    }else{
-                        $passwordErr= 'Invalid Password.';
-                    }
-                    }else{
-                        $banned="*Your Account is banned";
-                    }
+    $account=$crud->getData("SELECT * FROM users WHERE email='$email_input'");
+    if(!empty($account)){
+        $password_db=$account[0]["password"];
+        $active_db=$account[0]['active'];
+        $type_db=$account[0]['type'];
+        if($active_db=='true'){
+            if($password_input==$password_db){
+                if($type_db=='owner'){
+                    header("location:process_1.php");
+                }elseif($type_db=='admin'){
+                    header("location:process_admin.php");
+                }else{
+                    header("location:process.php");
                 }
+            }else{
+                $passwordErr="*Invalid Password";
             }
         }else{
-            $noAccount= 'Could not find you account. Try again with a different e-mail.';
+            $banned="*Your Account is Banned";
         }
+    }else{
+        $noAccount="*Could not find your account.Try again with different e-mail.";   
     }
 }else{
-    $email_input='';
-    $password_input='';
+    $email_input="";
+    $password_input="";
 }
-///////////////////////////////////////////////////////////////////////////////////////////
+
+
+
+
 ?>

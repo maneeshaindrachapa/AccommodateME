@@ -1,5 +1,10 @@
 <?php
-require 'connect.inc.php';
+//////////////////////////////////
+include_once("php/Crud.php");
+include_once("php/Validation.php");
+//////////////////////////////////
+$crud=new Crud();
+$validation=new Validation();
 
 //////////////////////////////////////////////
 session_start();
@@ -27,13 +32,6 @@ if(isset($_POST['submit'])){
     $price=$_POST['price'];
     $distance=$_POST['distance'];
     $address=$_POST['address'];
-    ///
-//    $boys=isset($_POST['forBoys'])?"checked":"unchecked";
-//    $girls=isset($_POST['forGirls'])?"checked":"unchecked";
-//    $for="boys";
-//    if($boys==='unchecked'){
-//        $for='girls';
-//    }
     $for=$_POST['for'];
     ///
     
@@ -46,36 +44,26 @@ if(isset($_POST['submit'])){
    
     if(($email!='') && ($password!='') && ($studentCount!='') && ($price!='') && ($distance!='') && ($address!='') && ($allPhotosFilled)){
        
-        /*finding the user id
-        =====================*/
-        $query_select="SELECT * FROM users WHERE email='$email'";
-        if(!is_null(mysqli_query($db, $query_select))){
-            if ($query_run = mysqli_query($db, $query_select)) {
-                while ($row = mysqli_fetch_assoc($query_run)) {
-                     $userID = $row['userID'];
-                     $password_db = $row['password'];
-                    
-                    
-                    /*adding boarding data to database
-                    ==================================*/
-                    if($password==$password_db){
-                        $query_add = "INSERT INTO boarding_details VALUES(NULL, '$userID', '$studentCount', '$price', '$distance','$address','$for')";
-                        if (mysqli_query($db, $query_add)) {
-                            $price = '500';
-                            $studentCount = '1';
-                            $password = '';
-                            $distance = '100';
-                            $address='';
-                            //echo 'successfully added!';
-                            
-                            /*finding the last boarding ID (boarding ID of the current boarding input)
-                            =========================================================================*/
-                            
-                            $query_lastid="SELECT * FROM `boarding_details` ORDER BY boardingID DESC";
-                            if(!is_null(mysqli_query($db, $query_lastid))) {
-                                if ($query_run_lastid = mysqli_query($db, $query_lastid)) {
-                                    while ($row_lastid = mysqli_fetch_assoc($query_run_lastid)) {
-                                        $last_boarding_id=$row_lastid['boardingID'];
+        /* finding the user id */
+        $idFetch=$crud->getData("SELECT * FROM users WHERE email='$email'");
+        $userID = $idFetch[0]['userID'];
+        $password_db = $idFetch[0]['password'];
+      
+        /* adding boarding data to database */
+        if($password==$password_db){
+            $boarding_details_db=$crud->execute("INSERT INTO boarding_details(boardingID,userID,boardingFor,studentCount,price,distance,address) VALUES (NULL,'$userID','$for','$studentCount','$price','$distance','$address')");
+            if ($boarding_details_db){
+                $price = '500';
+                $studentCount = '1';
+                $password = '';
+                $distance = '100';
+                $address='';
+
+                /*finding the last boarding ID (boarding ID of the current boarding input)
+                =========================================================================*/
+
+                            $query_lastid=$crud->getData("SELECT * FROM `boarding_details` ORDER BY boardingID DESC");
+                             $last_boarding_id=$$query_lastid[0]['boardingID'];
                                         
                                         /*photo adding process
                                         ======================*/
@@ -100,7 +88,6 @@ if(isset($_POST['submit'])){
                                                     } 
                                                     $new_file_name='u'.$userID.'b'.$last_boarding_id.'img0'.$num.'.'.$file_extention;
                                                         if (move_uploaded_file($file_tmp_name, "$location/" . $new_file_name)) {
-                                                            //echo 'uploaded';
                                                         } else {
                                                             $error_1= '*There was an error uploading the file '.$file_name.' ';
                                                         }
@@ -112,10 +99,10 @@ if(isset($_POST['submit'])){
                                                 }
                                             }
                                         }
-                                        break;
-                                    }
-                                }
-                            }
+                                    
+                                    
+                                
+                            
 
                         } else {
                         }
@@ -123,17 +110,13 @@ if(isset($_POST['submit'])){
                         $error_password= '*invalid password!';
                         $password='';
                     }
-                }
-            }
-        }else{
-            $error_email= '*Your email does not exist!';
-        }   
     $error_alert="";
     }else{
         $fill_all= '*fill all the data.';
     
     }
-}else{
+}
+else{
     $password='';
     $studentCount='';
     $price='';
