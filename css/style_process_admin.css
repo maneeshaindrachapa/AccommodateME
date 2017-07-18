@@ -9,7 +9,7 @@
 }
 
 body {
-  background-image:url(../img/slider/02.jpg);
+  background-image:url(../img/admin_page.jpg);
   background-repeat: no-repeat;
   background-size: cover;
   font-family: 'Raleway',sans-serif;
@@ -86,7 +86,7 @@ thead th {
   text-align:left;
   padding:20px;
   @include background-image(linear-gradient(#646f7f, #4a5564));
-  border-top:1px solid #858d99;
+  border-bottom:1px solid #858d99;
   
   &:first-child {
    @include border-top-left-radius(5px); 

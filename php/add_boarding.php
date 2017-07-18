@@ -8,6 +8,9 @@ $validation=new Validation();
 
 //////////////////////////////////////////////
 session_start();
+if($_SESSION['email']==''){
+    header('location:index.php');
+}
 
 $email=$_SESSION['email'];
 /////////////////////////////////////////////

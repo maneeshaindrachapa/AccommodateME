@@ -6,15 +6,19 @@ $crud=new Crud();
 
 session_start();
 
-
-
 $email=$_SESSION['email'];
-
+if($_SESSION['email']==""){
+    header('location:index.php');
+}
 $name=$crud->getData("SELECT firstName FROM users where email='$email'");
 
 $userDetails=$crud->getData("SELECT userID,firstName,lastName,email,password,telephone,type,active FROM users");
 
 $boardingDetails=$crud->getData("SELECT boardingID,userID,boardingFor,studentCount,price,distance,address FROM boarding_details");
+
+$emailprof=$_SESSION['email'];
+$profile_pic_db=$crud->getData("SELECT profPic FROM users WHERE email='$emailprof'");
+$profile=$profile_pic_db[0]['profPic'];
 ////////////////////////////////////////////////////
 ?>
 
@@ -38,6 +42,64 @@ $boardingDetails=$crud->getData("SELECT boardingID,userID,boardingFor,studentCou
             </div><br>
         <div>
         <h1>Welcome&nbsp;<?php echo $name[0]['firstName'];?></h1>
+        <div class="wrap">
+                    <div class="sideA"></div>
+                    <a href="profile.php"><div class="sideB"></div></a>
+                </div><br>
+                <style>
+                        .wrap{
+                        margin: auto;
+                        width: 150px;
+                        height: 150px;
+                        cursor: pointer;
+                    }
+
+                    .wrap div{
+                        width:150px;
+                        height:150px;
+                        border-radius: 100%;
+                        background-position:50% 50%;
+                        background-size: 150px;
+                        background-repeat: no-repeat;
+                        box-shadow:inset 0 0 45px rgba(255,255,255,0.3) , 0 12px 20px -10px rgba(0,0,0,0.4)  ;
+                    }
+
+                    .sideA{
+                        background-image: url("profPic/<?php echo $profile;?>");
+                        background-size:cover;
+                    }
+
+                    .sideB{
+                        background-image: url("img/editProfile.jpg");
+                        background-size: cover;
+                    }
+
+                    /*Transitions for the wallpapers*/
+                    body{
+                        -webkit-perspective: 800px;
+                    }
+
+                    .wrap div{
+                        position: absolute;
+                        -webkit-backface-visibility: hidden;
+                    }
+
+                    .sideA{
+                        z-index: 100;
+                    }
+                    .sideB{
+                        -webkit-transform: rotateY(-180deg);
+                    }
+                    .wrap{
+                        transition:-webkit-transform 0.2s ease-in ;
+                        -webkit-transform-style: preserve-3D;
+
+                    }
+                    .wrap:hover{
+                        -webkit-transform:rotateY(180deg);
+                    }
+                </style>
+            <!--------------->
         <h2>Users</h2>
         <table class="table">
             <thead>

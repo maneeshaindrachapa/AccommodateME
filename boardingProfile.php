@@ -5,6 +5,9 @@ include_once("php/Crud.php");
 $crud=new Crud();
 
 session_start();
+if($_SESSION['email']==''){
+    header('location:index.php');
+}
 if(isset($_GET['boardingID'])){
     $temp = $_GET['boardingID'];
     $_SESSION['boardingID']=$temp;

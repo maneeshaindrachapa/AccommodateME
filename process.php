@@ -6,7 +6,9 @@ include_once('php/process_checking.php');
 $crud=new Crud();
 
 $emailprof=$_SESSION['email'];
-
+if($_SESSION['email']==""){
+    header('location:index.php');
+}
 $profile_pic_db=$crud->getData("SELECT profPic FROM users WHERE email='$emailprof'");
 $profile=$profile_pic_db[0]['profPic'];
 ////////////////////////////////////////////////////

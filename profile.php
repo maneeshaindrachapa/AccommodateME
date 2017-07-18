@@ -6,6 +6,13 @@ include('php/profile_checking.php');
 //////////////////////////////////
 $crud=new Crud();
 $validation=new Validation();
+
+if($_SESSION['email']==''){
+    header('location:index.php');
+}
+
+$typeforRedirect=$crud->getData("SELECT * FROM users WHERE email='$email'");
+$redirect='';
 ?>
 
 <!DOCTYPE html>
@@ -17,13 +24,14 @@ $validation=new Validation();
 <link rel="stylesheet" href="css/bootstrap.css">
 <link rel="stylesheet" href="css/style_profile.css" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Josefin+Sans|Titillium+Web" rel="stylesheet">
-
-
-
+    
+<!--Alerts-->
+<script src="alert/sweetalert.min.js"></script>
+<link rel="stylesheet" type="text/css" href="alert/sweetalert.css">
 
 </head>
-<body>
-        <div class="container" >
+<body>  <br>
+        <div class="container" style="background-color:rgba(74, 74, 74, 0.6);padding-bottom:15px" >
         <h1>Edit Profile</h1>
         <hr>
         <div class="row" >
@@ -124,7 +132,7 @@ $validation=new Validation();
             <div class="form-group">
                 <label class="col-lg-3 control-label">E-mail:</label>
                 <div class="col-lg-8">
-                    <input class="form-control" type="email" value="<?php echo $email; ?>" name="email" disabled><span><?php echo $error_message_EM;?></span>
+                    <input class="form-control" type="email" value="<?php echo $email; ?>" name="email"><span><?php echo $error_message_EM;?></span>
                 </div>
             </div>
           <div class="form-group">
@@ -156,7 +164,21 @@ $validation=new Validation();
             </div>
             </div>
         </form>
-            <button style="float:right" class="btn btn-primary" onclick="history.go(-1);"><a href="process_1.php" style="color:white">Go to Previous Page</a></button></div> </div></div>
+            <?php 
+            //////////////////////////////////////////
+            if($errors){
+                echo '<script>swal("Done", "Your Profile Details are Updated!", "success")</script>';    
+            }
+            if($typeforRedirect[0]['type']=='admin'){
+                $redirect='process_admin.php';
+            }elseif($typeforRedirect[0]['type']=='owner'){
+                $redirect='process_1.php';
+            }elseif($typeforRedirect[0]['type']=='searcher'){
+                $redirect='process.php';
+            }
+            //////////////////////////////////////////
+            ?>
+            <button style="float:right" class="btn btn-primary" onclick="window.location.href='<?php echo $redirect?>';"><a href="process_1.php" style="color:white">Go to Previous Page</a></button></div> </div></div>
       <br><br><br>
    
    

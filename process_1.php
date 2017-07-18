@@ -6,6 +6,9 @@ include_once('php/process_checking.php');
 $crud=new Crud();
 
 $emailprof=$_SESSION['email'];
+if($_SESSION['email']==""){
+    header('location:index.php');
+}
 
 $profile_pic_db=$crud->getData("SELECT profPic FROM users WHERE email='$emailprof'");
 $profile=$profile_pic_db[0]['profPic'];
@@ -122,7 +125,7 @@ $profile=$profile_pic_db[0]['profPic'];
             <!--------------->
                <br><div class=row>
                     <div class='col-md-5'>
-                        <h3 class='purchase_link'><a href=addBoarding.php>Purchase Details </a></h3></div>
+                        <h3 class='purchase_link'><a href=purchaseDetails.php>Purchase Details </a></h3></div>
                 <div class='col-md-2' style="font-size:20px;margin-bottom:5px">
                         |</div>
                     <div class="col-md-5">

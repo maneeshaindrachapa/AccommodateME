@@ -106,10 +106,10 @@ if(isset($_POST['submit_signup'])){
             <body>
             <h1>Welcome to AccomodateME!</h1>
 
-            <p><b>We are happy to inform you that your account is successfully created.</b></p><br>
+            <p><b>Hi '.$firstName.'<br>We are happy to inform you that your account is successfully created.</b></p><br>
             <p>This is your Confirmation code:<h2>'.$confirmationCode.'</h2>
 
-            <p>Now you can log into our members area and start posting advertisements.</p>
+            <p>Now you can log into our members area and search boardings as your preferance.</p>
 
             <p>Please make sure you have read the ad-posting rules and guidelines before continuing.</p>
 
@@ -166,7 +166,7 @@ if(isset($_POST['submit_signup'])){
             <body>
             <h1>Welcome to AccomodateME!</h1>
 
-            <p><b>We are happy to inform you that your account is successfully created.</b></p><br>
+            <p><b>Hi '.$firstName.'<br>We are happy to inform you that your account is successfully created.</b></p><br>
             <p>This is your Confirmation code:<h2>'.$confirmationCode.'</h2>
 
             <p>Now you can log into our members area and start searching for boarding places.</p>

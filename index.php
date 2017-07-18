@@ -223,7 +223,7 @@ $crud=new Crud();
                             <span><?php $banned;?></span>
                         </div>
                         <br>
-                            <h3 id="signInForget">Forgot Password? <a href=# >Click here</a></h3>
+                            <h3 id="signInForget">Forgot Password? <a href="forgetPassword.php" >Click here</a></h3>
                             <h3 id="signInAlready">New User? <a href="#tf-signup" class="page-scroll">Sign Up</a></h3> <br> 
                         <button type="submit" class="btn tf-btn btn-default" name="submit_signin">Submit</button>
                     </form>

@@ -6,6 +6,9 @@ $crud=new Crud();
 
 session_start();
 $email=$_SESSION['email'];
+if($_SESSION['email']==""){
+    header('location:index.php');
+}
 ?>
 
 <html>
@@ -22,19 +25,19 @@ $email=$_SESSION['email'];
     <div class='confirmationClass'>
     <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>">
     <h2>Input the Confirmation code We send You</h2>
-    <h2>to Verify your E-mail!</h2>
+    <h2>to Verify your E-mail !</h2>
     <input type="text" name="confirmation" placeholder="Confirmation Code" class="admin-email-form">
     <input type="submit" name="confirmInput" value="Confirm" class="btn btn-info">
         </form></div>
     
     <style>
         body{
-            background-image: url(img/slider/01.jpg);
+            background-image: url(img/confirm_account.jpg);
             background-repeat: no-repeat;
             background-size: cover;
         }
         .confirmationClass{
-            background-color: rgba(74, 74, 74, 0.66);
+            background-color: rgba(74, 74, 74, 0.86);
             padding: 20px;
             margin: 15%;
             color: #fff;
