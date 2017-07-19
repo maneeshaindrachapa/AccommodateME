@@ -7,7 +7,10 @@ body {
 }
 body{
     font-family: 'Raleway', sans-serif;
-    background-color: rgba(74, 74, 74, 0.66);
+/*    background-color: rgba(74, 74, 74, 0.66);*/
+    background-image: url(../img/boardingProfile.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .carousel {

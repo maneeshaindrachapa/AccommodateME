@@ -67,7 +67,7 @@ if(isset($_POST['submit'])){
 
                             $query_lastid=$crud->getData("SELECT * FROM `boarding_details` ORDER BY boardingID DESC");
                             $last_boarding_id=$query_lastid[0]['boardingID'];
-                            print_r($last_boarding_id);
+    
                                         
                                         /*photo adding process
                                         ======================*/

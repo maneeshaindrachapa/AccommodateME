@@ -64,6 +64,9 @@ button.btn.btn-info:hover{
 	outline: none;
 	outline-offset: none;
 }
+.btn .btn-info a:hover{
+    color:black;
+}
 /*****************************************/
 table {
   border-collapse: separate;

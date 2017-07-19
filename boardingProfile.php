@@ -49,11 +49,12 @@ if(sizeof($query_user)>0){
 //deactivate button here
 /*disable the purchase button
 ==============================*/
+$buttonActivate='disabled';
 $query_button=$crud->getData("SELECT isBooked FROM bet_details WHERE boardingID='$boardingID' AND studentID='$studentID'");
 if(sizeof($query_button)>0){
         $isBooked=$query_button[0]['isBooked'];
         if($isBooked=='true'){
-            echo 'button activated';
+            $buttonActivate="";
             //activate button here
         }
 }
@@ -214,14 +215,16 @@ if(isset($_POST['confirmBet'])){
         <br>
         <div class="row">
             <div class="col-md-6">
-                <label for="boardingBet">Add a bet for the Boarding :&nbsp; </label>
-                <input type="number" min="<?php echo $price_updated;?>" step="500" value="<?php echo $price_updated;?>" id="boardingBet" name="betValue">
+                <label for="boardingBet" style="font-size:20px;color:#fff">Add a bet for the Boarding :&nbsp; </label>
+                <input type="number" min="<?php echo $price_updated;?>" step="500" value="<?php echo $price_updated;?>" id="boardingBet" name="betValue" style="padding:10px;">
             </div>
         </div>
         <div class="row">
             <div class="col-md-8">
                 <button type="submit" class="btn btn-info" name="confirmBet">Confirm Bet</button>
-                <button type="submit" class="btn btn-info" name="purchaseBoarding">Purchase the Boarding</button>
+                
+                
+                <button type="submit" class="btn btn-info" name="purchaseBoarding" <?php echo $buttonActivate?>><a href="payment/pay.php">Purchase the Boarding</a></button>
         </div><br>
         </div></div>
     </form>

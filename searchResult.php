@@ -5,61 +5,57 @@ include_once("php/Crud.php");
 $crud=new Crud();
 
 session_start();
-//print_r($_SESSION);
-echo '<br>';
 $boardingList=$_SESSION['boardingArray'];
-
+//print_r($boardingList);
 
 if(isset($_POST['search_boarding'])){
-    echo $studentCount=(int)$_POST['studentCount'];
-    echo $price=(int)$_POST['price'];
-    echo $distance=(int)$_POST['distance'];
-    echo $for=$_POST['for'];
+    $studentCount=(int)$_POST['studentCount'];
+    $price=(int)$_POST['price'];
+    $distance=(int)$_POST['distance'];
+    $for=$_POST['for'];
     $boardingArray=array();
 
-    $query_count="SELECT * FROM `boarding_details` WHERE studentCount='$studentCount'AND boardingFor='$for'";
-    if(!is_null(mysqli_query($db, $query_count))) {
-        if ($query = mysqli_query($db, $query_count)) {
-            while ($row = mysqli_fetch_assoc($query)) {
-                $boardingID = $row['boardingID'];
-                $boardingPrice=(int)$row['price'];
-                $boardingDistance=(int)$row['distance'];
+    $query_count=$crud->getData("SELECT * FROM `boarding_details` WHERE studentCount='$studentCount'AND boardingFor='$for'");
+    print_r($query_count);
+    if(sizeof($query_count)>0) {
+        for($x=0;$x<sizeof($query_count);$x++){
+            $boardingID = $query_count[$x]['boardingID'];
+            $boardingPrice=(int)$query_count[$x]['price'];
+            $boardingDistance=(int)$query_count[$x]['distance'];
 
-                if(($price==0)&&($distance==0)){
+            if(($price==0)&&($distance==0)){
+                array_push($boardingArray,$boardingID);
+            }
+
+            if(($price!=0)&&($distance==0)){
+                if(($price-500<=$boardingPrice)&&($boardingPrice<=$price+500)) {
+                    array_push($boardingArray, $boardingID);
+                }
+            }
+
+            if(($price==0)&&($distance!=0)){
+                if(($distance-100<=$boardingDistance)&&($boardingDistance<=$distance+100)){
                     array_push($boardingArray,$boardingID);
                 }
+            }
 
-                if(($price!=0)&&($distance==0)){
-                    if(($price-500<=$boardingPrice)&&($boardingPrice<=$price+500)) {
+            if(($price!=0)&&($distance!=0)) {
+                if (($price - 500 <= $boardingPrice) && ($boardingPrice <= $price + 500)) {
+                    if (($distance - 100 <= $boardingDistance) && ($boardingDistance <= $distance + 100)) {
                         array_push($boardingArray, $boardingID);
-                    }
-                }
-
-                if(($price==0)&&($distance!=0)){
-                    if(($distance-100<=$boardingDistance)&&($boardingDistance<=$distance+100)){
-                        array_push($boardingArray,$boardingID);
-                    }
-                }
-
-                if(($price!=0)&&($distance!=0)) {
-                    if (($price - 500 <= $boardingPrice) && ($boardingPrice <= $price + 500)) {
-                        if (($distance - 100 <= $boardingDistance) && ($boardingDistance <= $distance + 100)) {
-                            array_push($boardingArray, $boardingID);
-                        }
                     }
                 }
             }
         }
     }
     if(!empty($boardingArray)){
-        //print_r($boardingArray);
         $_SESSION['boardingArray']=$boardingArray;
         //print_r($_SESSION);
         header("location:searchResult.php");
     }else{
         echo "No result Found";
         $_SESSION['boardingArray']=$boardingArray;
-        //print_r($_SESSION);
+        print_r($_SESSION);
         header("location:searchResult.php");
     }
 }
@@ -94,7 +90,7 @@ if(isset($_POST['search_boarding'])){
     </header>
     <div id="container" class="contain">
         <section id="content">
-            <!--slider-->
+            <!--slider--
             <div id="slider" class="rev_slider">
             <ul>
               <li data-transition="slideleft" data-slotamount="1" data-thumb="img/slider/01.jpg">
@@ -155,7 +151,7 @@ if(isset($_POST['search_boarding'])){
         <div class="col-md-8 col-md-offset-2">
         
         <h3 class="row">Search For a Boarding Place</h3><br>
-				<form class="form-inline" role="form">
+				<form class="form-inline" role="form" method="post">
 				<div class="row">
                         <div class="col-md-12">
                             <div class="form-group">
@@ -192,7 +188,7 @@ if(isset($_POST['search_boarding'])){
                     </div></div>
                     <br>
                     <div class="row">
-                        <button type="submit" class="btn btn-info" name="search_bording">Search</button></div>
+                        <button type="submit" class="btn btn-info" name="search_boarding">Search</button></div>
 				</form><br><br>
         </div> 
 </section>

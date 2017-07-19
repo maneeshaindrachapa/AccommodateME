@@ -168,13 +168,7 @@ session_start();
                 // echo 'Message has been sent';
             }
             
-            if($email_db[0]['type']=='searcher'){
-                header("location:process.php");
-            }elseif($email_db[0]['type']=="owner"){
-                header("location:process_1.php");
-            }else{
-                header("location:process_admin.php");
-            }
+            header('location:forgetPasswordConfirmation.php');
         }
     }else{
             echo '<script>swal("Error", "There is no account maching to the email you entered", "error")</script>';

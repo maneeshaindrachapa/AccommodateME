@@ -83,7 +83,7 @@ $crud=new Crud();
         <canvas id="anime-canvas"></canvas>
         <div class="overlay">
             <div class="content">
-                <h1>Welcome on <strong><span class="color">Accomodate Me</span></strong></h1>
+                <h1>Welcome to <strong><span class="color">Accomodate Me</span></strong></h1>
                 <p class="lead" style="text-transform:uppercase">Want to buy a boarding?&nbsp;Have one to sell? <strong>We got you covered!</strong></p>
                 <a href="#tf-about" class="fa fa-angle-down page-scroll"></a>
             </div>
@@ -102,7 +102,7 @@ $crud=new Crud();
                     <div class="about-text">
                         <div class="section-title">
                             <h4>About us</h4>
-                            <h2 id="about-header">Who are<strong><br> we?</strong></h2>
+                            <h2 id="about-header">Who are<strong> we?</strong></h2>
                             <hr>
                             <div class="clearfix"></div>
                         </div>
@@ -164,7 +164,7 @@ $crud=new Crud();
                             <div class="caption">
                                 <h3>Kavindu Chamiran</h3>
                                 <p>Sales Manager</p>
-                                <p>Optimism is the faith that leads to achievement.Nothing can be done without hope and confidence.</p>
+                                <p>If you want done something your way, you do it yourself.</p>
                             </div>
                         </div>
                     </div>

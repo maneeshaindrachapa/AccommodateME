@@ -16,6 +16,15 @@ class Validation{
         }
         return false;
       }
+
+    public function is_address_valid($address){
+        $string_exp = "/^[A-Za-z0-9 ,.'-]+$/";
+        if (strlen($address)>0 && preg_match($string_exp,$address)){
+            return true;
+        }
+        return false;
+    }
+
     public function password_length($password){
         if(strlen($password)>=8){
             return true;

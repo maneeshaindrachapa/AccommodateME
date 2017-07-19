@@ -178,7 +178,9 @@ $redirect='';
             }
             //////////////////////////////////////////
             ?>
-            <button style="float:right" class="btn btn-primary" onclick="window.location.href='<?php echo $redirect?>';"><a href="process_1.php" style="color:white">Go to Previous Page</a></button></div> </div></div>
+            <button style="float:right" class="btn btn-primary" onclick="window.location.href='<?php echo $redirect;?>';"> Go to Previous Page</button></div> </div></div>
+    
+            
       <br><br><br>
    
    

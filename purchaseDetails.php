@@ -12,6 +12,7 @@ $ownerID=$ownerDetails[0]['userID'];
 $boardingArray=Array();
 $boardingList=$crud->getData("SELECT boardingID FROM bet_details WHERE ownerID='$ownerID'");
 
+
 //==================================================
 $boardingList_temp=$crud->getData("SELECT * FROM bet_details WHERE ownerID='$ownerID' AND isBooked='true'");
 $true_list=Array();
@@ -21,7 +22,7 @@ if(!empty($boardingList_temp)){
         array_push($true_list,$boardingID);
     }
 }
-//print_r($true_list);
+print_r($true_list);
 //*===========================================================
 
 if(!empty($boardingList)){
@@ -152,12 +153,22 @@ if(isset($_POST['confirmPurchase'])){
     ?>
     <div style="float:right">
         <form align="right" name="form2"  method="post" class="admin-email-form">
+            <span>"Select Boarding ID and enter Bidder's email to do transaction"</span>
             <label>
-                <input type="number" style="color:white" class="form-control" name="boardingID_text" value="Boarding ID">
+<!--                <input type="number" style="color:white" class="form-control" name="boardingID_text" value="Boarding ID">-->
+                <select style="padding:10px;padding-left:20px;" name="boardingID_text">
+                <?php
+                for($x=0;$x<sizeof($boardingArray);$x++){
+                    echo "<option name=".$boardingArray[$x]." value=".$boardingArray[$x].">".$boardingArray[$x]."</option>";
+                    }    
+                ?>
+                </select>
                 <input type="email" style="color:white" class="form-control" name="email_text" placeholder="Bidders's Email">
                 <button type="submit" name="confirmPurchase" class="btn btn-info">Sell the Boarding</button>
             </label>
         </form>
+        <button style="float:right" class="btn btn-info"><a href="process_1.php" style="color:white;text-decoration:none;padding:10px">Go to Previous Page</a></button>
     </div>
+    
 </body>
 </html>
