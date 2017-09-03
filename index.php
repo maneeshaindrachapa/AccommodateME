@@ -15,7 +15,7 @@ $crud=new Crud();
     <meta charset="utf-8">
     <!--[if IE]><meta http-equiv="x-ua-compatible" content="IE=9" /><![endif]-->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Accomodate Me</title>
+    <title>Accommodate Me</title>
     
     <!-- Favicons
     ================================================== -->
@@ -83,7 +83,7 @@ $crud=new Crud();
         <canvas id="anime-canvas"></canvas>
         <div class="overlay">
             <div class="content">
-                <h1>Welcome to <strong><span class="color">Accomodate Me</span></strong></h1>
+                <h1>Welcome to <strong><span class="color">Accommodate Me</span></strong></h1>
                 <p class="lead" style="text-transform:uppercase">Want to buy a boarding?&nbsp;Have one to sell? <strong>We got you covered!</strong></p>
                 <a href="#tf-about" class="fa fa-angle-down page-scroll"></a>
             </div>
